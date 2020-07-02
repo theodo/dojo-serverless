@@ -1,0 +1,35 @@
+service:
+  name: dojo-serverless-backend
+
+package:
+  exclude:
+    - .git/**
+    - .gitignore
+
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: eu-west-1
+  stage: dev
+  usagePlan:
+    quota:
+      limit: 5000
+      offset: 2
+      period: MONTH
+    throttle:
+      burstLimit: 200
+      rateLimit: 100
+
+functions:
+  hello:
+    handler: hello.main
+    events:
+      - http:
+          method: get
+          path: hello
+
+resources:
+  - ${file(resources/api-gateway-errors.yml)}
