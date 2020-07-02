@@ -1,0 +1,43 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "prettier/react"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+    "alert": true,
+    "document": true,
+    "localStorage": true,
+    "navigator": true,
+    "window": true,
+    "HTMLElement": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "import/extensions": 0,
+    "import/no-unresolved": 0,
+    "import/prefer-default-export": 0,
+    "react/destructuring-assignment": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "react/no-array-index-key": 2,
+    "react/prefer-stateless-function": 0,
+    "react/prop-types": 0,
+    "react/require-default-props": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/camelcase": 0,
+    "@typescript-eslint/interface-name-prefix": 0,
+    "complexity": ["error", 8],
+    "max-lines": ["error", 200],
+    "max-depth": ["error", 3],
+    "max-params": ["error", 4],
+  }
+}

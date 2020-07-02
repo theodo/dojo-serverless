@@ -1,0 +1,51 @@
+{
+  "validation": {
+    "required": "This item is required"
+  },
+  "submit": "Validate",
+  "cancel": "Cancel",
+  "home": {
+    "latestEventsTitle": "Latest events",
+    "allEvents": "All events"
+  },
+  "eventList": {
+    "title": "Events",
+    "createButton": "Add event",
+    "table": {
+      "date": "Date",
+      "category": "Category",
+      "subcategory": "Sub-category",
+      "location": "Location"
+    },
+    "eventCreationForm": {
+      "category": "Event category",
+      "categoryPlaceholder": "Please select a category and a sub category",
+      "date": "Date",
+      "line": "Line and direction"
+    }
+  },
+  "pages": {
+    "network": {
+      "list": {
+        "title": "Networks",
+        "createNetwork": "Add a network",
+        "table": {
+          "columns": {
+            "name": "Name",
+            "usersCount": "Users"
+          },
+          "edit": "Edit"
+        }
+      },
+      "creationForm": {
+        "title": "Add a network",
+        "network": "Network",
+        "logbookInvestigationManagement": "Logbook & Investigation management",
+        "individualSafetyAssessment": "Individual safety assessment",
+        "otmrMonitoring": "OTMR monitoring",
+        "operationalAssistance": "Operational assistance",
+        "submit": "Add this network"
+      }
+    }
+  }
+}
