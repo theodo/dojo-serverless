@@ -6,6 +6,7 @@
 
 ### Setup IAM user on AWS
 
+- Go to [AWS Single Sign-On](https://theodo.awsapps.com/start/#/) and loggin to your account.
 - Setup a new IAM User in your AWS account with admin privileges and programmatic access.
 - Open AWS [Identity and Access Managment service (IAM)](https://console.aws.amazon.com/iam/home?region=eu-west-1) and add a user.
 - Select **Programmatic access** and **AWS Management Console access** access types in _Step 1 - Set User Details_
@@ -19,4 +20,4 @@
   - AWS Secret Access Key : _\$USER_SECRET_ACCESS_KEY_
   - Default region name : `eu-west-1`
   - Default output format : `json`
-- Run AWS_PROFILE="dojo-serverless"
+- Use the `dojo-serverless` profile in your `serverless.yml` files
