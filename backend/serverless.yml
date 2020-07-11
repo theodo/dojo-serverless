@@ -25,24 +25,30 @@ provider:
       rateLimit: 100
 
 functions:
+  hello:
+    handler: hello.main
+    events:
+      - http:
+          method: post
+          path: virus
   createVirus:
-    handler: src/handlers/createVirus.main
+    handler: src/handlers/virus/create.main
     events:
       - http:
           method: post
           path: virus
   getVirus:
-    handler: src/handlers/getVirus.main
+    handler: src/handlers/virus/get.main
     events:
       - http:
           method: get
           path: virus
   killVirus:
-    handler: src/handlers/killVirus.main
+    handler: src/handlers/virus/kill.main
     events:
       - http:
           method: delete
-          path: virus/:id
+          path: virus/{id}
 
 resources:
   - ${file(resources/api-gateway-errors.yml)}
