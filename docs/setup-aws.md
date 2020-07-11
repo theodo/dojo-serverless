@@ -20,4 +20,3 @@
   - AWS Secret Access Key : _\$USER_SECRET_ACCESS_KEY_
   - Default region name : `eu-west-1`
   - Default output format : `json`
-- Use the `dojo-serverless` profile in your `serverless.yml` files
