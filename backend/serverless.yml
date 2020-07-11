@@ -31,24 +31,6 @@ functions:
       - http:
           method: post
           path: virus
-  createVirus:
-    handler: src/handlers/virus/create.main
-    events:
-      - http:
-          method: post
-          path: virus
-  getVirus:
-    handler: src/handlers/virus/get.main
-    events:
-      - http:
-          method: get
-          path: virus
-  killVirus:
-    handler: src/handlers/virus/kill.main
-    events:
-      - http:
-          method: delete
-          path: virus/{id}
 
 resources:
   - ${file(resources/api-gateway-errors.yml)}
