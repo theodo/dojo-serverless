@@ -8,7 +8,8 @@
     "sourceMap": true,
     "target": "es2017",
     "outDir": "lib",
-    "strict": true
+    "strict": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": ["node_modules"]
 }

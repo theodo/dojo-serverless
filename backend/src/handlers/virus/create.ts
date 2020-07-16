@@ -1,14 +1,20 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { VIRUS_STATUS } from 'src/models/virus';
+import { DynamoDB } from 'aws-sdk';
+
+import uuid from 'uuid';
+import { success } from '@libs/response';
+
+const documentClient = new DynamoDB.DocumentClient();
 
 export const main: APIGatewayProxyHandler = async () => {
-  return {
-    statusCode: 201,
-    body: JSON.stringify({
-      data: {
-        id: 1,
-        status: VIRUS_STATUS.ALIVE,
-      },
-    }),
-  };
+  const virusId = uuid();
+
+  await documentClient
+    .put({
+      TableName: 'dojo-serverless-table',
+      Item: { partitionKey: 'Virus', rangeKey: virusId },
+    })
+    .promise();
+
+  return success({ id: uuid() });
 };

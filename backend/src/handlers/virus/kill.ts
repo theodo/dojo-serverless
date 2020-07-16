@@ -1,6 +1,9 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
+import { DynamoDB } from 'aws-sdk';
+
 import { failure, success } from '@libs/response';
-import { VIRUS_STATUS } from 'src/models/virus';
+
+const documentClient = new DynamoDB.DocumentClient();
 
 export const main: APIGatewayProxyHandler = async event => {
   if (!event.pathParameters || !event.pathParameters.id) {
@@ -8,10 +11,16 @@ export const main: APIGatewayProxyHandler = async event => {
   }
 
   const { id } = event.pathParameters;
-  const virusId: number = parseInt(decodeURI(id), 10);
 
-  return success({
-    id: virusId,
-    status: VIRUS_STATUS.ALIVE,
-  });
+  await documentClient
+    .delete({
+      TableName: 'dojo-serverless-table',
+      Key: {
+        partitionKey: 'Virus',
+        rangeKey: id,
+      },
+    })
+    .promise();
+
+  return success({ id });
 };
