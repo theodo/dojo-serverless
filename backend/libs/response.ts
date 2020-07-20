@@ -37,7 +37,7 @@ function buildResponse(statusCode: number, body: Body): HttpResponse {
   return {
     statusCode,
     headers: {
-      'Access-Control-Allow-Origin': '^https?://localhost(:[0-9]+)?$',
+      'Access-Control-Allow-Origin': 'http://localhost:3000',
       'Access-Control-Allow-Credentials': 'true',
     },
     body: JSON.stringify(body),

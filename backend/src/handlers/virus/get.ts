@@ -1,26 +1,20 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { VIRUS_STATUS } from 'src/models/virus';
+import { DynamoDB } from 'aws-sdk';
+
 import { success } from '@libs/response';
 
+const documentClient = new DynamoDB.DocumentClient();
+
 export const main: APIGatewayProxyHandler = async () => {
+  const { Items = [] } = await documentClient
+    .query({
+      TableName: 'dojo-serverless-table',
+      KeyConditionExpression: 'partitionKey = :partitionKey',
+      ExpressionAttributeValues: { ':partitionKey': 'Virus' },
+    })
+    .promise();
+
   return success({
-    data: [
-      {
-        id: 1,
-        status: VIRUS_STATUS.ALIVE,
-      },
-      {
-        id: 2,
-        status: VIRUS_STATUS.ALIVE,
-      },
-      {
-        id: 3,
-        status: VIRUS_STATUS.ALIVE,
-      },
-      {
-        id: 4,
-        status: VIRUS_STATUS.ALIVE,
-      },
-    ],
+    viruses: Items.map(({ sortKey }) => ({ id: sortKey })),
   });
 };
