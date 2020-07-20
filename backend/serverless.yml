@@ -15,14 +15,14 @@ provider:
   region: eu-west-1
   stage: dev
   profile: dojo-serverless
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:PutItem
-        - dynamodb:DeleteItem
-      Resource:
-        - 'Fn::GetAtt': [DojoServerlessTable, Arn]
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action:
+  #       - dynamodb:Query
+  #       - dynamodb:PutItem
+  #       - dynamodb:DeleteItem
+  #     Resource:
+  #       - 'Fn::GetAtt': [DojoServerlessTable, Arn]
   usagePlan:
     quota:
       limit: 5000
@@ -40,13 +40,6 @@ functions:
           method: get
           path: hello
           cors: true
-  createVirus:
-    handler: src/handlers/virus/create.main
-    events:
-      - http:
-          method: post
-          path: virus
-          cors: true
   getVirus:
     handler: src/handlers/virus/get.main
     events:
@@ -54,14 +47,6 @@ functions:
           method: get
           path: virus
           cors: true
-  killVirus:
-    handler: src/handlers/virus/kill.main
-    events:
-      - http:
-          method: delete
-          path: virus/{id}
-          cors: true
 
 resources:
   - ${file(resources/api-gateway-errors.yml)}
-  - ${file(resources/dynamodb.yml)}
