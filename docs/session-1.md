@@ -28,7 +28,7 @@ That's it! Once your stack is deployed:
 - Go on [API Gateway](https://eu-west-1.console.aws.amazon.com/apigateway/home?region=eu-west-1) interface to check out your API and your routes. Write down your API id !
 - Go on [AWS Lambda](https://eu-west-1.console.aws.amazon.com/lambda/home?region=eu-west-1) to check out your lambdas
 - If you call your ressource with the url returned by the command `https://{apiId}.execute-api.{region}.amazonaws.com/{stage}/hello`, you should get your response (you can find the region and the stage in your `serverless.yml`)!
-- Go on [AWS Cloudwatch](https://eu-west-1.console.aws.amazon.com/lambda/home?region=eu-west-1) to check out their execution logs (log stream tab)
+- Go on [AWS Cloudwatch](https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1) to check out their execution logs (log stream tab)
 
 ### Now, it's your turn 💪
 
@@ -46,9 +46,9 @@ Run `yarn` and `yarn start`. Now, it's your turn:
 - If you want to deploy only one function, use `serverless deploy -f <your-function-name>`. It is much faster (~5s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.yml`.
 - To call locally one function, use `serverless invoke -f <your-function-name> --path path/to/mocked-event.json`
 
-Done ? Good ! Don't forget to kill your stack by running `serverless remove` in the backend folder !
+Done ? Nice work ! Don't forget to kill your stack by running `serverless remove` in the backend folder !
 
-To see final result, checkout session-2 branch
+To see final result, checkout the start of [session 2](./session-2.md).
 
 ### Bonus: Bootstrap your serverless application
 
