@@ -6,11 +6,11 @@ Resources:
       AttributeDefinitions:
         - AttributeName: partitionKey
           AttributeType: S
-        - AttributeName: rangeKey
+        - AttributeName: sortKey
           AttributeType: S
       KeySchema:
         - AttributeName: partitionKey
           KeyType: HASH
-        - AttributeName: rangeKey
+        - AttributeName: sortKey
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST

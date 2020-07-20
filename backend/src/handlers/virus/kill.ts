@@ -15,10 +15,7 @@ export const main: APIGatewayProxyHandler = async event => {
   await documentClient
     .delete({
       TableName: 'dojo-serverless-table',
-      Key: {
-        partitionKey: 'Virus',
-        rangeKey: id,
-      },
+      Key: { partitionKey: 'Virus', sortKey: id },
     })
     .promise();
 

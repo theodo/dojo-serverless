@@ -12,7 +12,7 @@ export const main: APIGatewayProxyHandler = async () => {
   await documentClient
     .put({
       TableName: 'dojo-serverless-table',
-      Item: { partitionKey: 'Virus', rangeKey: virusId },
+      Item: { partitionKey: 'Virus', sortKey: virusId },
     })
     .promise();
 

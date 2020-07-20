@@ -15,6 +15,6 @@ export const main: APIGatewayProxyHandler = async () => {
     .promise();
 
   return success({
-    viruses: Items.map(({ rangeKey }) => ({ id: rangeKey })),
+    viruses: Items.map(({ sortKey }) => ({ id: sortKey })),
   });
 };
