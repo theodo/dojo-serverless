@@ -22,3 +22,19 @@ export const deleteConnection = async (connectionId: string): Promise<void> => {
     })
     .promise();
 };
+
+export const getAllConnections = async (): Promise<
+  { connectionId: string; endpoint: string }[]
+> => {
+  const { Items = [] } = await documentClient
+    .query({
+      TableName: 'dojo-serverless-table',
+      KeyConditionExpression: 'partitionKey = :partitionKey',
+      ExpressionAttributeValues: { ':partitionKey': 'Connection' },
+    })
+    .promise();
+  return Items.map(({ sortKey, endpoint }) => ({
+    connectionId: sortKey,
+    endpoint,
+  }));
+};

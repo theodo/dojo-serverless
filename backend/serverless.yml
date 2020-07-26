@@ -47,6 +47,7 @@ functions:
           method: post
           path: virus
           cors: true
+      - schedule: rate(1 minute)
   getVirus:
     handler: src/handlers/virus/get.main
     events:
