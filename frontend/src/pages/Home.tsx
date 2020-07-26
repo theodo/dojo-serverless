@@ -73,12 +73,9 @@ export default () => {
   });
 
   const addVirus = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/virus`,
-      { method: 'POST' },
-    );
-    const { id } = await response.json();
-    setViruses((prevViruses) => prevViruses.concat(getRandomVirus(id)));
+    await fetch(`${process.env.REACT_APP_API_BASE_URL}/virus`, {
+      method: 'POST',
+    });
   };
 
   const killVirus = async (virusId: string) => {
