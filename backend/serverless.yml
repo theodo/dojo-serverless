@@ -61,6 +61,16 @@ functions:
           method: delete
           path: virus/{id}
           cors: true
+  connectWebsocket:
+    handler: src/handlers/real-time/connect.main
+    events:
+      - websocket:
+          route: '$connect'
+  disconnectWebsocket:
+    handler: src/handlers/real-time/disconnect.main
+    events:
+      - websocket:
+          route: '$disconnect'
 
 resources:
   - ${file(resources/api-gateway-errors.yml)}
