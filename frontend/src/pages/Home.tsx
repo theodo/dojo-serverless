@@ -73,9 +73,12 @@ export default () => {
   });
 
   const addVirus = async () => {
-    await fetch(`${process.env.REACT_APP_API_BASE_URL}/virus`, {
-      method: 'POST',
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/virus`,
+      { method: 'POST' },
+    );
+    const { id } = await response.json();
+    setViruses((prevViruses) => prevViruses.concat(getRandomVirus(id)));
   };
 
   const killVirus = async (virusId: string) => {
@@ -85,13 +88,13 @@ export default () => {
     setViruses((prevViruses) => prevViruses.filter(({ id }) => id !== virusId));
   };
 
-  websocketConnexion.onmessage = (message) => {
-    const data = JSON.parse(message.data);
-    const virusId = data.virusId;
-    if (virusId) {
-      setViruses((prevViruses) => prevViruses.concat(getRandomVirus(virusId)));
-    }
-  };
+  // websocketConnexion.onmessage = (message) => {
+  //   const data = JSON.parse(message.data);
+  //   const virusId = data.virusId;
+  //   if (virusId) {
+  //     setViruses((prevViruses) => prevViruses.concat(getRandomVirus(virusId)));
+  //   }
+  // };
 
   return (
     <>

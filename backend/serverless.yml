@@ -21,7 +21,7 @@ provider:
         - dynamodb:Query
         - dynamodb:PutItem
         - dynamodb:DeleteItem
-        - dynamodb:ListStreams
+#        - dynamodb:ListStreams
       Resource:
         - 'Fn::GetAtt': [DojoServerlessTable, Arn]
   usagePlan:
@@ -48,7 +48,7 @@ functions:
           method: post
           path: virus
           cors: true
-      - schedule: rate(1 minute)
+# TODO trigger createVirus every minute
   getVirus:
     handler: src/handlers/virus/get.main
     events:
@@ -63,23 +63,17 @@ functions:
           method: delete
           path: virus/{id}
           cors: true
-  connectWebsocket:
-    handler: src/handlers/real-time/connect.main
-    events:
-      - websocket:
-          route: '$connect'
-  disconnectWebsocket:
-    handler: src/handlers/real-time/disconnect.main
-    events:
-      - websocket:
-          route: '$disconnect'
-  sendMessageToClient:
-    handler: src/handlers/real-time/sendMessageToClient.main
-    events:
-      - stream:
-          type: dynamodb
-          arn:
-            Fn::GetAtt: [DojoServerlessTable, StreamArn]
+# TODO trigger connect lambda on websocket connection
+
+# TODO trigger disconnect lambda on websocket disconnection
+
+#  sendMessageToClient:
+#    handler: src/handlers/real-time/sendMessageToClient.main
+#    events:
+#      - stream:
+#          type: dynamodb
+#          arn:
+#            Fn::GetAtt: [DojoServerlessTable, StreamArn]
 
 resources:
   - ${file(resources/api-gateway-errors.yml)}

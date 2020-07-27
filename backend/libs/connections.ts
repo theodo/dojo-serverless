@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { DynamoDB } from 'aws-sdk';
 import { Item } from './types';
 
@@ -12,33 +13,17 @@ export const createConnection = async (
   connectionId: string,
   endpoint: string,
 ): Promise<void> => {
-  await documentClient
-    .put({
-      TableName: 'dojo-serverless-table',
-      Item: { partitionKey: 'Connection', sortKey: connectionId, endpoint },
-    })
-    .promise();
+  // TODO insert a connection in the DynamoDB
 };
 
 export const deleteConnection = async (connectionId: string): Promise<void> => {
-  await documentClient
-    .delete({
-      TableName: 'dojo-serverless-table',
-      Key: { partitionKey: 'Connection', sortKey: connectionId },
-    })
-    .promise();
+  // TODO delete a connection from the DynamoDB
 };
 
 export const getAllConnections = async (): Promise<
   { connectionId: string; endpoint: string }[]
 > => {
-  const { Items = [] } = await documentClient
-    .query({
-      TableName: 'dojo-serverless-table',
-      KeyConditionExpression: 'partitionKey = :partitionKey',
-      ExpressionAttributeValues: { ':partitionKey': 'Connection' },
-    })
-    .promise();
+  // TODO fetch every connections from the DynamoDB
   return (Items as Connection[]).map(({ sortKey, endpoint }) => ({
     connectionId: sortKey,
     endpoint,

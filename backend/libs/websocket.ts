@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { APIGatewayEventRequestContext } from 'aws-lambda';
 import { ApiGatewayManagementApi } from 'aws-sdk';
 import { deleteConnection } from '@libs/connections';
@@ -30,17 +31,9 @@ export const sendMessageToConnection = async ({
   endpoint: string;
   message: any;
 }): Promise<void> => {
-  const apiGateway = new ApiGatewayManagementApi({
-    apiVersion: '2018-11-29',
-    endpoint,
-  });
+  // TODO init apiGateWay client with the correct endpoint
   try {
-    await apiGateway
-      .postToConnection({
-        ConnectionId: connectionId,
-        Data: JSON.stringify(message),
-      })
-      .promise();
+    // TODO send a message to a connection
   } catch (error) {
     if (error.statusCode !== 410) {
       throw error;
