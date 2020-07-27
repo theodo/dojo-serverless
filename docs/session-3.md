@@ -36,14 +36,27 @@ Register them in the `serverless.yml` ([useful link](https://www.serverless.com/
 
 **3. Send a virus to your frontend each minute**
 
-- Trigger the `createVirus` lambda every minute ([usefull link](https://www.serverless.com/framework/docs/providers/aws/events/schedule/#schedule/))
-- Modify `create.ts` to send the created virus to the front through the Websoccket API.
+- Trigger the `createVirus` lambda every minute ([useful link](https://www.serverless.com/framework/docs/providers/aws/events/schedule/#schedule/))
+- Modify `create.ts` to send the created virus to the front through the Websocket API.
    You will need to:
    - Fetch all active connections
-   - Send to each one a message with the new virus id ([usefull link](https://www.serverless.com/framework/docs/providers/aws/events/websocket/#send-a-message-to-a-ws-client))
+   - Send to each one a message with the new virus id ([useful link](https://www.serverless.com/framework/docs/providers/aws/events/websocket/#send-a-message-to-a-ws-client))
 - To avoid the double display of a virus created by clicking on the +. Remove the code which display a new virus after the http call.
 
-**Bonus: Create a fully real time application**
+**Bonus 1: Use DynamoDB streams to separate createVirus from sendMessageToClient**
+
+The lambda `createVirus` has two functions: create the virus and send a message to each client. It's a better practise to split it in two lambdas.
+
+- Uncomment the code in `dynamodb.yml` to enable the stream of the DynamoDB. Lambdas could subscribe to this stream and be trigger at every action on the table
+- Uncomment the code in `serverless.yml` to give the right to your lambda to listen the streams
+- Uncomment the code in `serverless.yml` to trigger `sendMessageToClient` on DynamoDB stream
+- Move the code which send the message to the clients from `create.ts` to `sendMessageToClient.ts`
+- On every insert of Virus, send a message to the clients:
+  - `SendMessageToClient` will receive events from the DynamoDB batched. You will need to loop over the batch to handle each event ([useful link](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.Lambda.Tutorial.html#Streams.Lambda.Tutorial.LambdaFunction))
+  - The object `NewImage` of a streamRecord must be parsed to be used: use `Converter.unmarshall` to parse it. ([useful link](https://stackoverflow.com/questions/44535445/unmarshall-dynamodb-json))
+  - Don't forget to filter the record on `eventName === 'INSERT'` and `primaryKey === 'Virus'`
+
+**Bonus 2: Create a fully real time application**
 
 - If you open a second frontend in another windows, you will see the viruses appear in real time,
 but if you destroy a virus it will not disappear in the other windows. Make it happens!
