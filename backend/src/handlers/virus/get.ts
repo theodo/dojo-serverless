@@ -2,6 +2,7 @@ import { APIGatewayProxyHandler } from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 
 import { success } from '@libs/response';
+import { Virus } from './types';
 
 const documentClient = new DynamoDB.DocumentClient();
 
@@ -15,6 +16,6 @@ export const main: APIGatewayProxyHandler = async () => {
     .promise();
 
   return success({
-    viruses: Items.map(({ sortKey }) => ({ id: sortKey })),
+    viruses: (Items as Virus[]).map(({ sortKey }) => ({ id: sortKey })),
   });
 };

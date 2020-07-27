@@ -1,4 +1,10 @@
 import { DynamoDB } from 'aws-sdk';
+import { Item } from './types';
+
+interface Connection extends Item {
+  partitionKey: 'Connection';
+  endpoint: string;
+}
 
 const documentClient = new DynamoDB.DocumentClient();
 
@@ -33,7 +39,7 @@ export const getAllConnections = async (): Promise<
       ExpressionAttributeValues: { ':partitionKey': 'Connection' },
     })
     .promise();
-  return Items.map(({ sortKey, endpoint }) => ({
+  return (Items as Connection[]).map(({ sortKey, endpoint }) => ({
     connectionId: sortKey,
     endpoint,
   }));
