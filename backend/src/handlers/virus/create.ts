@@ -16,5 +16,5 @@ export const main: APIGatewayProxyHandler = async () => {
     })
     .promise();
 
-  return success({ id: uuid() });
+  return success({ id: virusId });
 };

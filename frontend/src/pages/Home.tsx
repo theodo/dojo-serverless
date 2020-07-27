@@ -11,6 +11,8 @@ import virus4 from 'assets/Virus4.png';
 import virus5 from 'assets/Virus5.png';
 import virus6 from 'assets/Virus6.png';
 
+import { websocketConnexion } from '../services/networking/websocket';
+
 const VirusImgs = [virus1, virus2, virus3, virus4, virus5, virus6];
 
 const { Title, Text } = Typography;
@@ -71,12 +73,9 @@ export default () => {
   });
 
   const addVirus = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/virus`,
-      { method: 'POST' },
-    );
-    const { id } = await response.json();
-    setViruses((prevViruses) => prevViruses.concat(getRandomVirus(id)));
+    await fetch(`${process.env.REACT_APP_API_BASE_URL}/virus`, {
+      method: 'POST',
+    });
   };
 
   const killVirus = async (virusId: string) => {
@@ -84,6 +83,14 @@ export default () => {
       method: 'DELETE',
     });
     setViruses((prevViruses) => prevViruses.filter(({ id }) => id !== virusId));
+  };
+
+  websocketConnexion.onmessage = (message) => {
+    const data = JSON.parse(message.data);
+    const virusId = data.virusId;
+    if (virusId) {
+      setViruses((prevViruses) => prevViruses.concat(getRandomVirus(virusId)));
+    }
   };
 
   return (
