@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useAsync } from 'react-use';
 import { Typography, Row, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import { v4 } from 'uuid';
 
 import virus1 from 'assets/Virus1.png';
 import virus2 from 'assets/Virus2.png';
@@ -10,8 +10,6 @@ import virus3 from 'assets/Virus3.png';
 import virus4 from 'assets/Virus4.png';
 import virus5 from 'assets/Virus5.png';
 import virus6 from 'assets/Virus6.png';
-
-import { websocketConnexion } from '../services/networking/websocket';
 
 const VirusImgs = [virus1, virus2, virus3, virus4, virus5, virus6];
 
@@ -53,45 +51,25 @@ const Virus = styled.img<VirusProps>`
 
 const getRandomPosition = (n: number) => Math.floor(Math.random() * n);
 
-const getRandomVirus = (id: string) => ({
-  id,
+const getRandomVirus = () => ({
+  id: v4(),
   positionX: getRandomPosition(100),
   positionY: getRandomPosition(100),
   src: VirusImgs[getRandomPosition(6)],
 });
 
 export default () => {
-  const [viruses, setViruses] = useState<VirusProps[]>([]);
+  const [viruses, setViruses] = useState<VirusProps[]>([
+    getRandomVirus(),
+    getRandomVirus(),
+    getRandomVirus(),
+  ]);
 
-  useAsync(async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/virus`,
-      { method: 'GET' },
-    );
-    const { viruses } = await response.json();
-    setViruses(viruses.map(({ id }: { id: string }) => getRandomVirus(id)));
-  });
+  const addVirus = () =>
+    setViruses((prevViruses) => prevViruses.concat(getRandomVirus()));
 
-  const addVirus = async () => {
-    await fetch(`${process.env.REACT_APP_API_BASE_URL}/virus`, {
-      method: 'POST',
-    });
-  };
-
-  const killVirus = async (virusId: string) => {
-    await fetch(`${process.env.REACT_APP_API_BASE_URL}/virus/${virusId}`, {
-      method: 'DELETE',
-    });
+  const killVirus = (virusId: string) =>
     setViruses((prevViruses) => prevViruses.filter(({ id }) => id !== virusId));
-  };
-
-  websocketConnexion.onmessage = (message) => {
-    const data = JSON.parse(message.data);
-    const virusId = data.virusId;
-    if (virusId) {
-      setViruses((prevViruses) => prevViruses.concat(getRandomVirus(virusId)));
-    }
-  };
 
   return (
     <>
