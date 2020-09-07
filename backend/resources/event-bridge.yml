@@ -1,5 +1,0 @@
-Resources:
-  ApplicationEventBus:
-    Type: AWS::Events::EventBus
-    Properties:
-      Name: dojo-serverless
