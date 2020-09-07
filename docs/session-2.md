@@ -40,7 +40,7 @@ Now, it's your turn:
 
 - Open the [AWS dynamoDb DocumentClient documentation](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html) to learn how to use its `query`, `put` and `delete` methods.
 - Implement the get route to get Virus items instead of hard-coded ones.
-- Implement the post route that adds a Virus item to the db and call it in the frontend in the addVirus button onClick.
+- Create a post route that adds a Virus item to the db by adding a trigger to the `createVirus` lambda and call it in the frontend in the addVirus button onClick.
 - Implement the delete route and call it in the frontend in viruses onClicks.
 - [BONUS] Implement a `/kill-count` GET route that transmits a new `KillCount` item that increases each time a `Virus` deletion is successful, and use it in the front-end (a [useful link](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.ADD))
 
