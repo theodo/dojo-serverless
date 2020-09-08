@@ -18,17 +18,17 @@ Install your backend and deploy your stack !
 ```
 cd backend
 yarn
-serverless deploy
+yarn deploy
 ```
 
 That's it! Once your stack is deployed:
 
-- [ ] Go to [AWS Single Sign-On](https://theodo.awsapps.com/start/#/) and loggin to your account.
-- [ ] Go on [Cloudformation](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1) interface to check out the ressources that have been created
-- [ ] Go on [API Gateway](https://eu-west-1.console.aws.amazon.com/apigateway/home?region=eu-west-1) interface to check out your API and your routes. Write down your API id !
-- [ ] Go on [AWS Lambda](https://eu-west-1.console.aws.amazon.com/lambda/home?region=eu-west-1) to check out your lambdas
-- [ ] If you call your ressource with the url returned by the command `https://{apiId}.execute-api.{region}.amazonaws.com/{stage}/hello`, you should get your response (you can find the region and the stage in your `serverless.yml`)!
-- [ ] Go on [AWS Cloudwatch](https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1) to check out their execution logs (log stream tab)
+- Go to [AWS Single Sign-On](https://theodo.awsapps.com/start/#/) and loggin to your account.
+- Go on [Cloudformation](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1) interface to check out the ressources that have been created
+- Go on [API Gateway](https://eu-west-1.console.aws.amazon.com/apigateway/home?region=eu-west-1) interface to check out your API and your routes. Write down your API id !
+- Go on [AWS Lambda](https://eu-west-1.console.aws.amazon.com/lambda/home?region=eu-west-1) to check out your lambdas
+- If you call your ressource with the url returned by the command `https://{apiId}.execute-api.{region}.amazonaws.com/{stage}/hello`, you should get your response (you can find the region and the stage in your `serverless.ts`)!
+- Go on [AWS Cloudwatch](https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1) to check out their execution logs (log stream tab)
 
 ### Now, it's your turn 💪
 
@@ -36,14 +36,14 @@ In the front-end folder, copy-paste `.env.development` as `.env.development.loca
 
 Run `yarn` and `yarn start`. Now, it's your turn:
 
-- [ ] Connect your front-end to your back-end through a `/virus` GET route returning a mocked list of viruses.
-- [ ] Update your route to return a single (fake) virus if an id is provided as query param (log the event to see how to retrieve them).
-- [ ] Create a `createVirus` lambda that triggers every minute and does nothing for the moment (a [useful link](https://www.serverless.com/framework/docs/providers/aws/events/schedule/)) (but don't forget to remove it at the end of the session !)
-- [ ] Create a `virus/{id}` DELETE route that is requested on a virus click, and that does nothing for the moment. (a [useful link](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#request-parameters) and [another one](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#enabling-cors))
+- Connect your front-end to your back-end through a `/virus` GET route returning a mocked list of viruses.
+- Update your route to return a single (fake) virus if an id is provided as query param (log the event to see how to retrieve them).
+- Create a `createVirus` lambda that triggers every minute and does nothing for the moment (a [useful link](https://www.serverless.com/framework/docs/providers/aws/events/schedule/)) (but don't forget to remove it at the end of the session !)
+- Create a `virus/{id}` DELETE route that is requested on a virus click, and that does nothing for the moment. (a [useful link](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#request-parameters) and [another one](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#enabling-cors))
 
 **Pro tips**:
 
-- If you want to deploy only one function, use `serverless deploy -f <your-function-name>`. It is much faster (~5s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.yml`.
+- If you want to deploy only one function, use `serverless deploy -f <your-function-name>`. It is much faster (~5s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.ts`.
 - To call locally one function, use `serverless invoke -f <your-function-name> --path path/to/mocked-event.json`
 
 Done ? Nice work ! Don't forget to kill your stack by running `serverless remove` in the backend folder !

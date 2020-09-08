@@ -1,6 +1,6 @@
 import * as AwsConfig from 'serverless/aws';
 
-import ApiGatewayErrors from './resources/ApiGatewayErrors';
+import ApiGatewayErrors from './resources/apiGatewayErrors';
 import DojoServerlessTable from './resources/dynamodb';
 // import ApplicationEventBus from './resources/eventBridge';
 
@@ -13,7 +13,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
     runtime: 'nodejs10.x',
     region: 'eu-west-1',
     stage: 'dev',
-    profile: 'safetracker-dev',
+    profile: 'dojo-serverless',
     iamRoleStatements: [
       {
         Effect: 'Allow',
