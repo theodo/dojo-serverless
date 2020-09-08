@@ -6,7 +6,7 @@ First follow [this documentation](./setup-aws.md) to setup a `dojo-serverless` A
 
 ### Deploy your first Serverless app
 
-First, install serverless globally and checkout to the `session-1-v2` branch.
+First, install serverless globally and checkout to the `session-1-v3` branch.
 
 ```
 npm install -g serverless
