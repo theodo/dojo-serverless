@@ -1,6 +1,6 @@
 import * as AwsConfig from 'serverless/aws';
 
-import ApiGatewayErrors from './resources/ApiGatewayErrors';
+import ApiGatewayErrors from './resources/apiGatewayErrors';
 
 const serverlessConfiguration: AwsConfig.Serverless = {
   service: 'dojo-serverless-backend',
@@ -11,7 +11,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
     runtime: 'nodejs10.x',
     region: 'eu-west-1',
     stage: 'dev',
-    profile: 'safetracker-dev',
+    profile: 'dojo-serverless',
     usagePlan: {
       quota: {
         limit: 5000,
