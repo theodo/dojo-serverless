@@ -4,8 +4,9 @@ import ApiGatewayErrors from './resources/apiGatewayErrors';
 
 const serverlessConfiguration: AwsConfig.Serverless = {
   service: 'dojo-serverless-backend',
-  frameworkVersion: '>=1.72',
+  frameworkVersion: '>=1.83',
   plugins: ['serverless-webpack', 'serverless-step-functions'],
+  configValidationMode: 'error',
   provider: {
     name: 'aws',
     runtime: 'nodejs10.x',
