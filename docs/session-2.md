@@ -3,9 +3,9 @@
 First, checkout session-2 branch, and deploy the ressources for session-2.
 
 ```
-git checkout session-2-v1
+git checkout session-2-v2
 cd backend
-sls deploy
+yarn deploy
 ```
 
 You can then open:
@@ -23,8 +23,8 @@ Then, in the back-end folder, notice the new `dynamodb.yml` resource in the reso
 
 To deploy it:
 
-- Add the dynamo-db table as a ressource in the `serverless.yml` (end of file)
-- Give your lambdas the IAM rights to `Query`, `Put` and `Delete` Items on this table by uncommenting the correct blocks in the `serverless.yml`.
+- Add the dynamo-db table as a ressource in the `serverless.ts` (end of file)
+- Give your lambdas the IAM rights to `Query`, `Put` and `Delete` Items on this table by uncommenting the correct blocks in the `serverless.ts`.
 - Deploy your stack
 - Go to [DynamoDB service](https://eu-west-1.console.aws.amazon.com/dynamodb/home?region=eu-west-1) to check your newly created table. Notice the default item attributes: `partitionKey` and `sortKey` from the yml ressource.
 
@@ -42,11 +42,10 @@ Now, it's your turn:
 - Implement the get route to get Virus items instead of hard-coded ones.
 - Create a post route that adds a Virus item to the db by adding a trigger to the `createVirus` lambda and call it in the frontend in the addVirus button onClick.
 - Implement the delete route and call it in the frontend in viruses onClicks.
-- [BONUS] Implement a `/kill-count` GET route that transmits a new `KillCount` item that increases each time a `Virus` deletion is successful, and use it in the front-end (a [useful link](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.ADD))
 
 **Pro tips**:
 
-- If you want to deploy only one function, use `serverless deploy -f <your-function-name>`. It is much faster (~10s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.yml`.
+- If you want to deploy only one function, use `yarn deploy -f <your-function-name>`. It is much faster (~10s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.ts`.
 - To call locally one function, use `serverless invoke -f <your-function-name> --path path/to/mocked-event.json`
 
 Done ? Nice work ! Don't forget to kill your stack by running `serverless remove` in the backend folder !
