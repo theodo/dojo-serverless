@@ -3,7 +3,7 @@
 First, checkout session-3 branch, and deploy the resources for session-3.
 
 ```
-git checkout session-3-v1
+git checkout session-3-v2
 cd backend
 sls deploy
 ```
@@ -21,7 +21,7 @@ You can then open:
 **1. Store the connections**
     
 - The lambdas `connect.ts` and `disconnect.ts` must be triggered when a new websocket connection is established and when a connection is closed.
-Register them in the `serverless.yml` ([useful link](https://www.serverless.com/framework/docs/providers/aws/events/websocket/#websocket/))
+Register them in the `serverless.ts` ([useful link](https://www.serverless.com/framework/docs/providers/aws/events/websocket/#websocket/))
 - Implement `createConnection` to store a connection in the DynamoDB table when `connect.ts` is triggered
 - Implement `deleteConnection` to delete the connection when `disconnect.ts` is triggered
 - Deploy your stack
@@ -47,9 +47,9 @@ Register them in the `serverless.yml` ([useful link](https://www.serverless.com/
 
 The lambda `createVirus` has two functions: create the virus and send a message to each client. It's a better practise to split it in two lambdas.
 
-- Uncomment the code in `dynamodb.yml` to enable the stream of the DynamoDB. Lambdas could subscribe to this stream and be trigger at every action on the table
-- Uncomment the code in `serverless.yml` to give the right to your lambda to listen the streams
-- Uncomment the code in `serverless.yml` to trigger `sendMessageToClient` on DynamoDB stream
+- Uncomment the code in `dynamodb.ts` to enable the stream of the DynamoDB. Lambdas could subscribe to this stream and be trigger at every action on the table
+- Uncomment the code in `serverless.ts` to give the right to your lambda to listen the streams
+- Uncomment the code in `serverless.ts` to trigger `sendMessageToClient` on DynamoDB stream
 - Move the code which send the message to the clients from `create.ts` to `sendMessageToClient.ts`
 - On every insert of Virus, send a message to the clients:
   - `SendMessageToClient` will receive events from the DynamoDB batched. You will need to loop over the batch to handle each event ([useful link](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.Lambda.Tutorial.html#Streams.Lambda.Tutorial.LambdaFunction))
@@ -63,7 +63,7 @@ but if you destroy a virus it will not disappear in the other windows. Make it h
 
 ***Pro tips***:
 
-- *If you want to deploy only one function, use `serverless deploy -f <your-function-name>`. It is much faster (~10s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.yml`.*
+- *If you want to deploy only one function, use `serverless deploy -f <your-function-name>`. It is much faster (~10s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.ts`.*
 - *To call locally one function, use `serverless invoke -f <your-function-name> --path path/to/mocked-event.json`*
 
 Done ? Nice work ! Don't forget to kill your stack by running `serverless remove` in the backend folder !
