@@ -2,12 +2,12 @@ import * as AwsConfig from 'serverless/aws';
 
 import ApiGatewayErrors from './resources/apiGatewayErrors';
 import DojoServerlessTable from './resources/dynamodb';
-// import ApplicationEventBus from './resources/eventBridge';
 
 const serverlessConfiguration: AwsConfig.Serverless = {
   service: 'dojo-serverless-backend',
   frameworkVersion: '>=1.83',
-  plugins: ['serverless-webpack', 'serverless-step-functions'],
+  plugins: ['serverless-webpack'],
+  // @ts-ignore
   configValidationMode: 'error',
   provider: {
     name: 'aws',
@@ -22,11 +22,10 @@ const serverlessConfiguration: AwsConfig.Serverless = {
           'dynamodb:Query',
           'dynamodb:PutItem',
           'dynamodb:DeleteItem',
-          'dynamodb:ListStreams',
+          // 'dynamodb:ListStreams',
         ],
         Resource: { 'Fn::GetAtt': ['DojoServerlessTable', 'Arn'] },
       },
-      { Effect: 'Allow', Action: ['events:PutEvents'], Resource: '*' },
     ],
     usagePlan: {
       quota: {
@@ -76,6 +75,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
           },
         },
       ],
+      // TODO: trigger createVirus every minute
     },
     killVirus: {
       handler: 'src/handlers/virus/kill.main',
@@ -91,122 +91,28 @@ const serverlessConfiguration: AwsConfig.Serverless = {
     },
 
     //  --- WEBSOCKET ---
-    connectWebsocket: {
-      handler: 'src/handlers/real-time/connect.main',
-      events: [{ websocket: { route: '$connect' } }],
-    },
-    disconnectWebsocket: {
-      handler: 'src/handlers/real-time/disconnect.main',
-      events: [
-        {
-          websocket: { route: '$disconnect' },
-        },
-      ],
-    },
-    sendMessageToClient: {
-      handler: 'src/handlers/real-time/sendMessageToClient.main',
-      events: [
-        {
-          stream: {
-            // @ts-ignore
-            type: 'dynamodb',
-            // @ts-ignore
-            arn: { 'Fn::GetAtt': ['DojoServerlessTable', 'StreamArn'] },
-          },
-        },
-      ],
-    },
+    // TODO: trigger connect lambda on websocket connection
 
-    //  --- STATE MACHINE ---
-    requestNothing: {
-      handler: 'src/handlers/stateMachine/requestNothing.main',
-      // events: [
-      //   {
-      //     eventBridge: {
-      //       eventBus: 'dojo-serverless',
-      //       pattern: {
-      //         source: ['dojo-serverless'],
-      //         'detail-type': ['LAZYNESS_DETECTED'],
-      //       },
-      //     },
-      //   },
-      // { schedule: 'rate(1 minute)' },
-      // ],
-    },
-    spreadVirus: {
-      handler: 'src/handlers/stateMachine/spreadVirus.main',
-      // events: [{ schedule: 'rate(1 minute)' }],
-    },
-    chooseWaitTime: {
-      handler: 'src/handlers/stateMachine/chooseWaitTime.main',
-    },
-  },
-  stepFunctions: {
-    stateMachines: {
-      wait10SecondsAndDoNothing: {
-        // events: [
-        //   {
-        //     cloudwatchEvent: {
-        //       eventBusName: 'dojo-serverless',
-        //       event: {
-        //         source: ['dojo-serverless'],
-        //         'detail-type': ['NOTHING_REQUESTED'],
-        //       },
-        //     },
-        //   },
-        // ],
-        definition: {
-          StartAt: 'Wait10Sec',
-          States: {
-            Wait10Sec: {
-              Type: 'Wait',
-              Seconds: 10,
-              Next: 'DoNothing',
-            },
-            DoNothing: { Type: 'Succeed' },
-          },
-        },
-      },
-      waitXSecondsAndCreateVirus: {
-        // events: [
-        //   {
-        //     cloudwatchEvent: {
-        //       eventBusName: 'dojo-serverless',
-        //       event: {
-        //         source: 'dojo-serverless',
-        //         'detail-type': ['VIRUS_CREATION_REQUESTED'],
-        //       },
-        //     },
-        //   },
-        // ],
-        definition: {
-          StartAt: 'ChooseWaitTime',
-          States: {
-            ChooseWaitTime: {
-              Type: 'Task',
-              Resource: { 'Fn::GetAtt': ['chooseWaitTime', 'Arn'] },
-              Next: 'WaitXSec',
-            },
-            WaitXSec: {
-              Type: 'Wait',
-              SecondsPath: '$.numberOfSeconds',
-              Next: 'CreateVirus',
-            },
-            CreateVirus: {
-              Type: 'Task',
-              Resource: { 'Fn::GetAtt': ['createVirus', 'Arn'] },
-              End: true,
-            },
-          },
-        },
-      },
-    },
+    // TODO: trigger disconnect lambda on websocket disconnection
+
+    // sendMessageToClient: {
+    //   handler: 'src/handlers/real-time/sendMessageToClient.main',
+    //   events: [
+    //     {
+    //       stream: {
+    //         // @ts-ignore
+    //         type: 'dynamodb',
+    //         // @ts-ignore
+    //         arn: { 'Fn::GetAtt': ['DojoServerlessTable', 'StreamArn'] },
+    //       },
+    //     },
+    //   ],
+    // },
   },
   resources: {
     Resources: {
       ...ApiGatewayErrors,
       DojoServerlessTable,
-      // ApplicationEventBus,
     },
   },
 };

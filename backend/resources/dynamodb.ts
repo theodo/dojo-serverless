@@ -11,8 +11,8 @@ export default {
       { AttributeName: 'sortKey', KeyType: 'RANGE' },
     ],
     BillingMode: 'PAY_PER_REQUEST',
-    StreamSpecification: {
-      StreamViewType: 'NEW_AND_OLD_IMAGES',
-    },
+    // StreamSpecification: {
+    //   StreamViewType: 'NEW_AND_OLD_IMAGES',
+    // },
   },
 };
