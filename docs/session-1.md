@@ -10,7 +10,7 @@ First, install serverless globally and checkout to the `session-1-v3` branch.
 
 ```
 npm install -g serverless
-git checkout session-1-v2
+git checkout session-1-v3
 ```
 
 Install your backend and deploy your stack !
