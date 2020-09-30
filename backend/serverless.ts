@@ -26,7 +26,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
         ],
         Resource: { 'Fn::GetAtt': ['DojoServerlessTable', 'Arn'] },
       },
-      { Effect: 'Allow', Action: ['events:PutEvents'], Resource: '*' },
+      // { Effect: 'Allow', Action: ['events:PutEvents'], Resource: '*' },
     ],
     usagePlan: {
       quota: {
@@ -120,41 +120,33 @@ const serverlessConfiguration: AwsConfig.Serverless = {
     //  --- STATE MACHINE ---
     requestNothing: {
       handler: 'src/handlers/stateMachine/requestNothing.main',
-      // events: [
-      //   {
-      //     eventBridge: {
-      //       eventBus: 'dojo-serverless',
-      //       pattern: {
-      //         source: ['dojo-serverless'],
-      //         'detail-type': ['LAZYNESS_DETECTED'],
-      //       },
-      //     },
-      //   },
-      // { schedule: 'rate(1 minute)' },
-      // ],
-    },
-    spreadVirus: {
-      handler: 'src/handlers/stateMachine/spreadVirus.main',
-      // events: [{ schedule: 'rate(1 minute)' }],
-    },
-    chooseWaitTime: {
-      handler: 'src/handlers/stateMachine/chooseWaitTime.main',
+      events: [
+        {
+          eventBridge: {
+            eventBus: 'dojo-serverless',
+            pattern: {
+              source: ['dojo-serverless'],
+              'detail-type': ['LAZYNESS_DETECTED'],
+            },
+          },
+        },
+      ],
     },
   },
   stepFunctions: {
     stateMachines: {
       wait10SecondsAndDoNothing: {
-        // events: [
-        //   {
-        //     cloudwatchEvent: {
-        //       eventBusName: 'dojo-serverless',
-        //       event: {
-        //         source: ['dojo-serverless'],
-        //         'detail-type': ['NOTHING_REQUESTED'],
-        //       },
-        //     },
-        //   },
-        // ],
+        events: [
+          {
+            cloudwatchEvent: {
+              eventBusName: 'dojo-serverless',
+              event: {
+                source: ['dojo-serverless'],
+                'detail-type': ['NOTHING_REQUESTED'],
+              },
+            },
+          },
+        ],
         definition: {
           StartAt: 'Wait10Sec',
           States: {
@@ -164,39 +156,6 @@ const serverlessConfiguration: AwsConfig.Serverless = {
               Next: 'DoNothing',
             },
             DoNothing: { Type: 'Succeed' },
-          },
-        },
-      },
-      waitXSecondsAndCreateVirus: {
-        // events: [
-        //   {
-        //     cloudwatchEvent: {
-        //       eventBusName: 'dojo-serverless',
-        //       event: {
-        //         source: 'dojo-serverless',
-        //         'detail-type': ['VIRUS_CREATION_REQUESTED'],
-        //       },
-        //     },
-        //   },
-        // ],
-        definition: {
-          StartAt: 'ChooseWaitTime',
-          States: {
-            ChooseWaitTime: {
-              Type: 'Task',
-              Resource: { 'Fn::GetAtt': ['chooseWaitTime', 'Arn'] },
-              Next: 'WaitXSec',
-            },
-            WaitXSec: {
-              Type: 'Wait',
-              SecondsPath: '$.numberOfSeconds',
-              Next: 'CreateVirus',
-            },
-            CreateVirus: {
-              Type: 'Task',
-              Resource: { 'Fn::GetAtt': ['createVirus', 'Arn'] },
-              End: true,
-            },
           },
         },
       },
