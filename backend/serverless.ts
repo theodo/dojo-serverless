@@ -7,8 +7,12 @@ import DojoServerlessTable from './resources/dynamodb';
 const serverlessConfiguration: AwsConfig.Serverless = {
   service: 'dojo-serverless-backend',
   frameworkVersion: '>=1.83',
-  plugins: ['serverless-webpack', 'serverless-step-functions'],
-  configValidationMode: 'error',
+  plugins: [
+    'serverless-webpack',
+    'serverless-pseudo-parameters',
+    'serverless-step-functions',
+  ],
+  configValidationMode: 'warn',
   provider: {
     name: 'aws',
     runtime: 'nodejs10.x',
@@ -123,7 +127,8 @@ const serverlessConfiguration: AwsConfig.Serverless = {
       events: [
         {
           eventBridge: {
-            eventBus: 'dojo-serverless',
+            eventBus:
+              'arn:aws:events:#{AWS::Region}:#{AWS::AccountId}:event-bus/dojo-serverless',
             pattern: {
               source: ['dojo-serverless'],
               'detail-type': ['LAZYNESS_DETECTED'],
@@ -139,7 +144,8 @@ const serverlessConfiguration: AwsConfig.Serverless = {
         events: [
           {
             cloudwatchEvent: {
-              eventBusName: 'dojo-serverless',
+              eventBusName:
+                'arn:aws:events:#{AWS::Region}:#{AWS::AccountId}:event-bus/dojo-serverless',
               event: {
                 source: ['dojo-serverless'],
                 'detail-type': ['NOTHING_REQUESTED'],
