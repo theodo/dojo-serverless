@@ -2,13 +2,17 @@ import * as AwsConfig from 'serverless/aws';
 
 import ApiGatewayErrors from './resources/apiGatewayErrors';
 import DojoServerlessTable from './resources/dynamodb';
-// import ApplicationEventBus from './resources/eventBridge';
+import ApplicationEventBus from './resources/eventBridge';
 
 const serverlessConfiguration: AwsConfig.Serverless = {
   service: 'dojo-serverless-backend',
   frameworkVersion: '>=1.83',
-  plugins: ['serverless-webpack', 'serverless-step-functions'],
-  configValidationMode: 'error',
+  plugins: [
+    'serverless-webpack',
+    'serverless-pseudo-parameters',
+    'serverless-step-functions',
+  ],
+  configValidationMode: 'warn',
   provider: {
     name: 'aws',
     runtime: 'nodejs10.x',
@@ -120,18 +124,19 @@ const serverlessConfiguration: AwsConfig.Serverless = {
     //  --- STATE MACHINE ---
     requestNothing: {
       handler: 'src/handlers/stateMachine/requestNothing.main',
-      // events: [
-      //   {
-      //     eventBridge: {
-      //       eventBus: 'dojo-serverless',
-      //       pattern: {
-      //         source: ['dojo-serverless'],
-      //         'detail-type': ['LAZYNESS_DETECTED'],
-      //       },
-      //     },
-      //   },
-      // { schedule: 'rate(1 minute)' },
-      // ],
+      events: [
+        {
+          eventBridge: {
+            eventBus:
+              'arn:aws:events:#{AWS::Region}:#{AWS::AccountId}:event-bus/dojo-serverless',
+            pattern: {
+              source: ['dojo-serverless'],
+              'detail-type': ['LAZYNESS_DETECTED'],
+            },
+          },
+        },
+        // { schedule: 'rate(1 minute)' },
+      ],
     },
     spreadVirus: {
       handler: 'src/handlers/stateMachine/spreadVirus.main',
@@ -144,17 +149,18 @@ const serverlessConfiguration: AwsConfig.Serverless = {
   stepFunctions: {
     stateMachines: {
       wait10SecondsAndDoNothing: {
-        // events: [
-        //   {
-        //     cloudwatchEvent: {
-        //       eventBusName: 'dojo-serverless',
-        //       event: {
-        //         source: ['dojo-serverless'],
-        //         'detail-type': ['NOTHING_REQUESTED'],
-        //       },
-        //     },
-        //   },
-        // ],
+        events: [
+          {
+            cloudwatchEvent: {
+              eventBusName:
+                'arn:aws:events:#{AWS::Region}:#{AWS::AccountId}:event-bus/dojo-serverless',
+              event: {
+                source: ['dojo-serverless'],
+                'detail-type': ['NOTHING_REQUESTED'],
+              },
+            },
+          },
+        ],
         definition: {
           StartAt: 'Wait10Sec',
           States: {
@@ -168,17 +174,18 @@ const serverlessConfiguration: AwsConfig.Serverless = {
         },
       },
       waitXSecondsAndCreateVirus: {
-        // events: [
-        //   {
-        //     cloudwatchEvent: {
-        //       eventBusName: 'dojo-serverless',
-        //       event: {
-        //         source: 'dojo-serverless',
-        //         'detail-type': ['VIRUS_CREATION_REQUESTED'],
-        //       },
-        //     },
-        //   },
-        // ],
+        events: [
+          {
+            cloudwatchEvent: {
+              eventBusName:
+                'arn:aws:events:#{AWS::Region}:#{AWS::AccountId}:event-bus/dojo-serverless',
+              event: {
+                source: ['dojo-serverless'],
+                'detail-type': ['VIRUS_CREATION_REQUESTED'],
+              },
+            },
+          },
+        ],
         definition: {
           StartAt: 'ChooseWaitTime',
           States: {
@@ -206,7 +213,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
     Resources: {
       ...ApiGatewayErrors,
       DojoServerlessTable,
-      // ApplicationEventBus,
+      ApplicationEventBus,
     },
   },
 };

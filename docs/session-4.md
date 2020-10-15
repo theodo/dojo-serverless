@@ -9,7 +9,7 @@ We can do that thanks to EventBridge and Step Functions! Our goal is the make th
 Checkout session-4 branch
 
 ```bash
-git checkout session-4-v1
+git checkout session-4-v2
 ```
 
 - Notice the new `event-bridge.ts` in the ressource folder
