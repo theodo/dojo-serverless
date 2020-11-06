@@ -10,6 +10,7 @@ import virus3 from 'assets/Virus3.png';
 import virus4 from 'assets/Virus4.png';
 import virus5 from 'assets/Virus5.png';
 import virus6 from 'assets/Virus6.png';
+import { useAsync } from 'react-use';
 
 const VirusImgs = [virus1, virus2, virus3, virus4, virus5, virus6];
 
@@ -58,12 +59,21 @@ const getRandomVirus = () => ({
   src: VirusImgs[getRandomPosition(6)],
 });
 
+async function fetchViruses() {
+  const response = await fetch(
+    'https://run.mocky.io/v3/38e0ff92-1a40-41da-a2c7-d5bf6e09e83a',
+  );
+
+  return response.json();
+}
+
 export default () => {
-  const [viruses, setViruses] = useState<VirusProps[]>([
-    getRandomVirus(),
-    getRandomVirus(),
-    getRandomVirus(),
-  ]);
+  const [viruses, setViruses] = useState<VirusProps[]>([]);
+
+  useAsync(async () => {
+    const viruses = await fetchViruses();
+    setViruses(viruses);
+  });
 
   const addVirus = () =>
     setViruses((prevViruses) => prevViruses.concat(getRandomVirus()));
