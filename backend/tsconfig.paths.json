@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@libs/*": ["libs/*"],
+      "@libs/*": ["src/libs/*"],
       "@services": ["services"],
       "@services/*": ["services/*"],
       "@typeDefs": ["typeDefs"],
