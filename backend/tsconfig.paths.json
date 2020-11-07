@@ -1,15 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@libs/*": ["libs/*"],
-      "@loaders/*": ["loaders/*"],
-      "@services": ["services"],
-      "@services/*": ["services/*"],
-      "@typeDefs": ["typeDefs"],
-      "@typeDefs/*": ["typeDefs/*"],
-      "@builders": ["libs/builders"],
-      "@builders/*": ["libs/builders/*"]
-    }
+    "baseUrl": "./src"
   }
 }
