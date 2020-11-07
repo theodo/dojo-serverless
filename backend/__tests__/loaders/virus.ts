@@ -1,6 +1,6 @@
-import { fetchViruses } from 'loaders/virus';
+import { fetchVirus, fetchViruses } from 'loaders/virus';
 
-test('correct greeting is generated', () => {
+test('all viruses are fetched', () => {
   expect(fetchViruses()).toStrictEqual([
     {
       id: '9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca',
@@ -21,4 +21,13 @@ test('correct greeting is generated', () => {
       src: '/static/media/Virus6.9a59198b.png',
     },
   ]);
+});
+
+test('one viruses is fetched', () => {
+  expect(fetchVirus('9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca')).toStrictEqual({
+    id: '9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca',
+    positionX: 30,
+    positionY: 24,
+    src: '/static/media/Virus1.d02ce17d.png',
+  });
 });

@@ -20,3 +20,12 @@ export const fetchViruses: any = () => {
     },
   ];
 };
+
+export const fetchVirus: any = (id: string) => {
+  return {
+    id: id,
+    positionX: 30,
+    positionY: 24,
+    src: '/static/media/Virus1.d02ce17d.png',
+  };
+};

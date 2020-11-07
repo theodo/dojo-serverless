@@ -42,6 +42,18 @@ const serverlessConfiguration: AwsConfig.Serverless = {
         },
       ],
     },
+    virusOne: {
+      handler: 'src/handlers/virus.one',
+      events: [
+        {
+          http: {
+            method: 'get',
+            path: 'virus/{id}',
+            cors: true,
+          },
+        },
+      ],
+    },
   },
   resources: {
     Resources: {
