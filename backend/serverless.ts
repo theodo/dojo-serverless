@@ -26,13 +26,13 @@ const serverlessConfiguration: AwsConfig.Serverless = {
     },
   },
   functions: {
-    hello: {
-      handler: 'hello.main',
+    virus: {
+      handler: 'virus.all',
       events: [
         {
           http: {
             method: 'get',
-            path: 'hello',
+            path: 'virus',
             cors: true,
           },
         },

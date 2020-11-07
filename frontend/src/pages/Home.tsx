@@ -60,9 +60,7 @@ const getRandomVirus = () => ({
 });
 
 async function fetchViruses() {
-  const response = await fetch(
-    'https://run.mocky.io/v3/38e0ff92-1a40-41da-a2c7-d5bf6e09e83a',
-  );
+  const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/virus`);
 
   return response.json();
 }
