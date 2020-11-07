@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.17",
+    "@types/jest": "^26.0.15",
     "@types/node": "10.12.18",
     "@types/serverless": "^1.78.8",
     "@types/uuid": "3.4.5",
@@ -26,14 +27,16 @@
     "eslint": "6.2.2",
     "eslint-config-prettier": "6.1.0",
     "eslint-plugin-prettier": "3.1.0",
+    "jest": "^26.6.3",
     "prettier": "1.18.2",
     "serverless": "^1.83.0",
     "serverless-offline": "^6.8.0",
     "serverless-step-functions": "^2.21.1",
     "serverless-webpack": "5.2.0",
+    "ts-jest": "^26.4.3",
     "ts-loader": "5.3.3",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
-    "typescript": "3.7.2",
+    "typescript": "^3.7.2",
     "webpack": "4.29.0"
   }
 }
