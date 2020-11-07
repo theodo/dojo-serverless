@@ -1,7 +1,12 @@
 import { APIGatewayEvent, APIGatewayProxyHandler } from 'aws-lambda';
 
 import { success, failure } from 'libs/response';
-import { fetchVirus, fetchViruses, killVirus } from 'loaders/virus';
+import {
+  createVirus,
+  fetchVirus,
+  fetchViruses,
+  killVirus,
+} from 'loaders/virus';
 
 export const all: APIGatewayProxyHandler = async () => {
   return success(fetchViruses());
@@ -25,4 +30,10 @@ export const kill: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
   const { id } = event.pathParameters;
 
   return success(killVirus(id));
+};
+
+export const create: APIGatewayProxyHandler = async () => {
+  console.log('Creating virus, bouuuh');
+
+  return success(createVirus());
 };

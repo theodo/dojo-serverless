@@ -35,3 +35,12 @@ export const killVirus: any = (id: string) => {
     id: id,
   };
 };
+
+export const createVirus: any = () => {
+  return {
+    id: 'new-virus',
+    positionX: 30,
+    positionY: 24,
+    src: '/static/media/Virus1.d02ce17d.png',
+  };
+};
