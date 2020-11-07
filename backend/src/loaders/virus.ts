@@ -29,3 +29,9 @@ export const fetchVirus: any = (id: string) => {
     src: '/static/media/Virus1.d02ce17d.png',
   };
 };
+
+export const killVirus: any = (id: string) => {
+  return {
+    id: id,
+  };
+};
