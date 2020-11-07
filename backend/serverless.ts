@@ -31,7 +31,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
   },
   functions: {
     virus: {
-      handler: 'virus.all',
+      handler: 'src/handlers/virus.all',
       events: [
         {
           http: {
