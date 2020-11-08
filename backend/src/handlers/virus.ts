@@ -1,4 +1,7 @@
 import { APIGatewayEvent, APIGatewayProxyHandler } from 'aws-lambda';
+import { DynamoDB } from 'aws-sdk';
+
+import uuid from 'uuid';
 
 import { success, failure } from 'libs/response';
 import {
@@ -7,6 +10,8 @@ import {
   fetchViruses,
   killVirus,
 } from 'loaders/virus';
+
+const documentClient = new DynamoDB.DocumentClient();
 
 export const all: APIGatewayProxyHandler = async () => {
   return success(fetchViruses());
@@ -33,7 +38,14 @@ export const kill: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
 };
 
 export const create: APIGatewayProxyHandler = async () => {
-  console.log('Creating virus, bouuuh');
+  const virusId = uuid();
+
+  await documentClient
+    .put({
+      TableName: 'dojo-serverless-table',
+      Item: { partitionKey: 'Virus', sortKey: virusId },
+    })
+    .promise();
 
   return success(createVirus());
 };
