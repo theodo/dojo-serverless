@@ -1,9 +1,4 @@
-import {
-  createVirus,
-  fetchVirus,
-  fetchViruses,
-  killVirus,
-} from 'loaders/virus';
+import { fetchVirus, fetchViruses, killVirus } from 'loaders/virus';
 
 test('all viruses are fetched', () => {
   expect(fetchViruses()).toStrictEqual([
@@ -40,14 +35,5 @@ test('one viruses is fetched', () => {
 test('kill virus should return id of killed virus', () => {
   expect(killVirus('9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca')).toStrictEqual({
     id: '9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca',
-  });
-});
-
-test('create virus should return virus object created', () => {
-  expect(createVirus()).toStrictEqual({
-    id: 'new-virus',
-    positionX: 30,
-    positionY: 24,
-    src: '/static/media/Virus1.d02ce17d.png',
   });
 });

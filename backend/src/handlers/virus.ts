@@ -1,19 +1,9 @@
 import { APIGatewayEvent, APIGatewayProxyHandler } from 'aws-lambda';
-import { DynamoDB } from 'aws-sdk';
-
-import uuid from 'uuid';
 
 import { success, failure } from 'libs/response';
-import {
-  createVirus,
-  fetchVirus,
-  fetchViruses,
-  killVirus,
-} from 'loaders/virus';
-import { VIRUS_TABLE } from 'config/tables';
+import { fetchVirus, fetchViruses, killVirus } from 'loaders/virus';
 import { VirusProps } from 'model/Virus';
-
-const documentClient = new DynamoDB.DocumentClient();
+import { createVirus as repositoryCreateVirus } from 'repository/virus';
 
 export const all: APIGatewayProxyHandler = async () => {
   return success(fetchViruses());
@@ -40,21 +30,12 @@ export const kill: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
 };
 
 export const create: APIGatewayProxyHandler = async () => {
-  const virusId = uuid();
-
-  const virus: VirusProps = {
-    id: virusId,
+  const virusCreated: VirusProps = await repositoryCreateVirus({
+    id: '',
     positionX: 30,
     positionY: 24,
     src: '/static/media/Virus1.d02ce17d.png',
-  };
+  });
 
-  await documentClient
-    .put({
-      TableName: VIRUS_TABLE,
-      Item: virus,
-    })
-    .promise();
-
-  return success(createVirus());
+  return success(virusCreated);
 };
