@@ -1,7 +1,9 @@
+import { VIRUS_TABLE } from '../src/config/tables';
+
 export default {
   Type: 'AWS::DynamoDB::Table',
   Properties: {
-    TableName: 'dojo-serverless-table',
+    TableName: VIRUS_TABLE,
     AttributeDefinitions: [
       { AttributeName: 'partitionKey', AttributeType: 'S' },
       { AttributeName: 'sortKey', AttributeType: 'S' },

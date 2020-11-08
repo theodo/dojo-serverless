@@ -11,6 +11,8 @@ import {
   killVirus,
 } from 'loaders/virus';
 
+import { VIRUS_TABLE } from 'config/tables';
+
 const documentClient = new DynamoDB.DocumentClient();
 
 export const all: APIGatewayProxyHandler = async () => {
@@ -42,7 +44,7 @@ export const create: APIGatewayProxyHandler = async () => {
 
   await documentClient
     .put({
-      TableName: 'dojo-serverless-table',
+      TableName: VIRUS_TABLE,
       Item: { partitionKey: 'Virus', sortKey: virusId },
     })
     .promise();
