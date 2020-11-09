@@ -24,6 +24,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
         Action: [
           'dynamodb:Query',
           'dynamodb:PutItem',
+          'dynamodb:Scan',
           'dynamodb:DeleteItem',
           'dynamodb:ListStreams',
         ],
