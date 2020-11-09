@@ -1,18 +1,14 @@
 import { APIGatewayEvent, APIGatewayProxyHandler } from 'aws-lambda';
 
 import { success, failure, error } from 'libs/response';
-import { fetchVirus } from 'loaders/VirusLoader';
 import { VirusProps } from 'model/VirusModel';
-import {
-  createVirus as repositoryCreateVirus,
-  fetchViruses,
-  deleteVirus,
-} from 'repository/VirusRepository';
+import * as VirusLoader from 'loaders/VirusLoader';
+import * as VirusRepository from 'repository/VirusRepository';
 
 const getRandomPosition = (n: number) => Math.floor(Math.random() * n);
 
 export const all: APIGatewayProxyHandler = async () => {
-  return success(await fetchViruses());
+  return success(await VirusRepository.fetchViruses());
 };
 
 export const one: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
@@ -22,7 +18,7 @@ export const one: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
 
   const { id } = event.pathParameters;
 
-  return success(fetchVirus(id));
+  return success(VirusLoader.fetchVirus(id));
 };
 
 export const kill: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
@@ -32,7 +28,7 @@ export const kill: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
 
   const { id } = event.pathParameters;
 
-  await deleteVirus(id);
+  await VirusRepository.deleteVirus(id);
 
   return success({ id });
 };
@@ -46,7 +42,7 @@ export const create: APIGatewayProxyHandler = async () => {
     '/static/media/Virus4.3094571b.png',
   ];
 
-  const virusCreated: VirusProps = await repositoryCreateVirus({
+  const virusCreated: VirusProps = await VirusRepository.createVirus({
     id: '',
     positionX: getRandomPosition(100),
     positionY: getRandomPosition(100),
