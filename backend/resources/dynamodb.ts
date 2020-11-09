@@ -4,8 +4,17 @@ export default {
   Type: 'AWS::DynamoDB::Table',
   Properties: {
     TableName: VIRUS_TABLE,
-    AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
-    KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+    AttributeDefinitions: [
+      { AttributeName: 'partitionKey', AttributeType: 'S' },
+      { AttributeName: 'sortKey', AttributeType: 'S' },
+    ],
+    KeySchema: [
+      { AttributeName: 'partitionKey', KeyType: 'HASH' },
+      { AttributeName: 'sortKey', KeyType: 'RANGE' },
+    ],
     BillingMode: 'PAY_PER_REQUEST',
+    StreamSpecification: {
+      StreamViewType: 'NEW_AND_OLD_IMAGES',
+    },
   },
 };

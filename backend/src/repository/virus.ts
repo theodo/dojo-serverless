@@ -19,12 +19,16 @@ export const fetchViruses = async (): Promise<Array<VirusProps>> => {
 export const createVirus = async (
   virusProps: VirusProps,
 ): Promise<VirusProps> => {
-  const virusId = uuid();
+  const newVirus = { ...virusProps, id: uuid() };
 
   await documentClient
     .put({
       TableName: VIRUS_TABLE,
-      Item: { ...virusProps, id: virusId },
+      Item: {
+        ...newVirus,
+        partitionKey: 'Virus',
+        sortKey: newVirus.id,
+      },
     })
     .promise();
 
