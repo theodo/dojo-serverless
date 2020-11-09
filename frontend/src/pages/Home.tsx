@@ -65,6 +65,14 @@ async function fetchViruses() {
   return response.json();
 }
 
+async function killVirusRemote(id: string) {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_BASE_URL}/virus/${id}/kill`,
+  );
+
+  return response.json();
+}
+
 export default () => {
   const [viruses, setViruses] = useState<VirusProps[]>([]);
 
@@ -76,8 +84,10 @@ export default () => {
   const addVirus = () =>
     setViruses((prevViruses) => prevViruses.concat(getRandomVirus()));
 
-  const killVirus = (virusId: string) =>
+  const killVirus = (virusId: string) => {
+    killVirusRemote(virusId);
     setViruses((prevViruses) => prevViruses.filter(({ id }) => id !== virusId));
+  };
 
   return (
     <>

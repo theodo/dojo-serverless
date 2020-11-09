@@ -51,3 +51,7 @@ export function success(body: Body): HttpResponse {
 export function failure(body: Body): HttpResponse {
   return buildResponse(500, body);
 }
+
+export function error(body: Body): HttpResponse {
+  return buildResponse(400, body);
+}

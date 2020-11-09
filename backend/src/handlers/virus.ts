@@ -1,11 +1,12 @@
 import { APIGatewayEvent, APIGatewayProxyHandler } from 'aws-lambda';
 
-import { success, failure } from 'libs/response';
-import { fetchVirus, killVirus } from 'loaders/virus';
+import { success, failure, error } from 'libs/response';
+import { fetchVirus } from 'loaders/virus';
 import { VirusProps } from 'model/Virus';
 import {
   createVirus as repositoryCreateVirus,
   fetchViruses,
+  deleteVirus,
 } from 'repository/virus';
 
 const getRandomPosition = (n: number) => Math.floor(Math.random() * n);
@@ -26,12 +27,14 @@ export const one: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
 
 export const kill: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
   if (!event.pathParameters || !event.pathParameters.id) {
-    return failure({ message: 'No id provided' });
+    return error({ message: 'No id provided' });
   }
 
   const { id } = event.pathParameters;
 
-  return success(killVirus(id));
+  await deleteVirus(id);
+
+  return success({ id });
 };
 
 export const create: APIGatewayProxyHandler = async () => {

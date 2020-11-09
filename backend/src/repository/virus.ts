@@ -34,3 +34,18 @@ export const createVirus = async (
 
   return virusProps;
 };
+
+export const deleteVirus = async (id: string): Promise<string> => {
+  try {
+    await documentClient
+      .delete({
+        TableName: VIRUS_TABLE,
+        Key: { partitionKey: 'Virus', sortKey: id },
+      })
+      .promise();
+  } catch (error) {
+    console.error(`Failed to delete item with error ${error}`);
+  }
+
+  return id;
+};
