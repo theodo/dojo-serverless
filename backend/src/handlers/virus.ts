@@ -8,6 +8,8 @@ import {
   fetchViruses,
 } from 'repository/virus';
 
+const getRandomPosition = (n: number) => Math.floor(Math.random() * n);
+
 export const all: APIGatewayProxyHandler = async () => {
   return success(await fetchViruses());
 };
@@ -33,11 +35,19 @@ export const kill: APIGatewayProxyHandler = async (event: APIGatewayEvent) => {
 };
 
 export const create: APIGatewayProxyHandler = async () => {
+  // should be moved in factory
+  const virusImages = [
+    '/static/media/Virus1.d02ce17d.png',
+    '/static/media/Virus6.9a59198b.png',
+    '/static/media/Virus3.2be44a17.png',
+    '/static/media/Virus4.3094571b.png',
+  ];
+
   const virusCreated: VirusProps = await repositoryCreateVirus({
     id: '',
-    positionX: 30,
-    positionY: 24,
-    src: '/static/media/Virus1.d02ce17d.png',
+    positionX: getRandomPosition(100),
+    positionY: getRandomPosition(100),
+    src: virusImages[getRandomPosition(4)],
   });
 
   return success(virusCreated);
