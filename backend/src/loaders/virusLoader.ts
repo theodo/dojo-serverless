@@ -1,7 +1,5 @@
-import { fetchVirus, fetchViruses, killVirus } from 'loaders/virusLoader';
-
-test('all viruses are fetched', () => {
-  expect(fetchViruses()).toStrictEqual([
+export const fetchViruses: any = () => {
+  return [
     {
       id: '9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca',
       positionX: 30,
@@ -20,20 +18,20 @@ test('all viruses are fetched', () => {
       positionY: 94,
       src: '/static/media/Virus6.9a59198b.png',
     },
-  ]);
-});
+  ];
+};
 
-test('one viruses is fetched', () => {
-  expect(fetchVirus('9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca')).toStrictEqual({
-    id: '9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca',
+export const fetchVirus: any = (id: string) => {
+  return {
+    id: id,
     positionX: 30,
     positionY: 24,
     src: '/static/media/Virus1.d02ce17d.png',
-  });
-});
+  };
+};
 
-test('kill virus should return id of killed virus', () => {
-  expect(killVirus('9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca')).toStrictEqual({
-    id: '9d6fa82f-2edc-43d6-a7a6-7ac4a6f0dcca',
-  });
-});
+export const killVirus: any = (id: string) => {
+  return {
+    id: id,
+  };
+};

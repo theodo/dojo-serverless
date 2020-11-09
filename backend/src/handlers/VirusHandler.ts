@@ -1,13 +1,13 @@
 import { APIGatewayEvent, APIGatewayProxyHandler } from 'aws-lambda';
 
 import { success, failure, error } from 'libs/response';
-import { fetchVirus } from 'loaders/virus';
-import { VirusProps } from 'model/Virus';
+import { fetchVirus } from 'loaders/VirusLoader';
+import { VirusProps } from 'model/VirusModel';
 import {
   createVirus as repositoryCreateVirus,
   fetchViruses,
   deleteVirus,
-} from 'repository/virus';
+} from 'repository/VirusRepository';
 
 const getRandomPosition = (n: number) => Math.floor(Math.random() * n);
 

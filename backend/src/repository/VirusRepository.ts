@@ -1,4 +1,4 @@
-import { VirusProps } from 'model/Virus';
+import { VirusProps } from 'model/virusModel';
 
 import { DynamoDB } from 'aws-sdk';
 import { VIRUS_TABLE } from 'config/tables';

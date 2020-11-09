@@ -45,7 +45,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
   },
   functions: {
     virus: {
-      handler: 'src/handlers/virus.all',
+      handler: 'src/handlers/virusHandler.all',
       events: [
         {
           http: {
@@ -57,7 +57,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
       ],
     },
     virusOne: {
-      handler: 'src/handlers/virus.one',
+      handler: 'src/handlers/virusHandler.one',
       events: [
         {
           http: {
@@ -69,7 +69,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
       ],
     },
     virusKill: {
-      handler: 'src/handlers/virus.kill',
+      handler: 'src/handlers/virusHandler.kill',
       events: [
         {
           http: {
@@ -81,7 +81,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
       ],
     },
     virusCreate: {
-      handler: 'src/handlers/virus.create',
+      handler: 'src/handlers/virusHandler.create',
       events: [{ schedule: 'rate(1 hour)' }],
     },
   },
