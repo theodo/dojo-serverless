@@ -6,7 +6,7 @@
 
 ### Setup IAM user on AWS
 
-- Go to [AWS Single Sign-On](https://theodo.awsapps.com/start/#/) and loggin to your account.
+- Go to [AWS Single Sign-On](https://theodo.awsapps.com/start/#/) and loggin to your account (if you don't have one, ask for it to be created).
 - Setup a new IAM User in your AWS account with admin privileges and programmatic access.
 - Open AWS [Identity and Access Managment service (IAM)](https://console.aws.amazon.com/iam/home?region=eu-west-1) and add a user.
 - Select **Programmatic access** and **AWS Management Console access** access types in _Step 1 - Set User Details_
