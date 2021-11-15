@@ -1,8 +1,7 @@
-import * as AwsConfig from 'serverless/aws';
-
 import ApiGatewayErrors from './resources/apiGatewayErrors';
 
-const serverlessConfiguration: AwsConfig.Serverless = {
+// remplacer le typage
+const serverlessConfiguration = {
   service: 'dojo-serverless-backend',
   frameworkVersion: '>=1.83',
   plugins: ['serverless-webpack', 'serverless-step-functions'],
@@ -13,16 +12,18 @@ const serverlessConfiguration: AwsConfig.Serverless = {
     region: 'eu-west-1',
     stage: 'dev',
     profile: 'dojo-serverless',
-    usagePlan: {
-      quota: {
-        limit: 5000,
-        offset: 2,
-        period: 'MONTH',
-      },
-      throttle: {
-        burstLimit: 200,
-        rateLimit: 100,
-      },
+    apiGateway: {
+      usagePlan: {
+        quota: {
+          limit: 5000,
+          offset: 2,
+          period: 'MONTH',
+        },
+        throttle: {
+          burstLimit: 200,
+          rateLimit: 100,
+        },
+      }
     },
     lambdaHashingVersion: '20201221'
   },
