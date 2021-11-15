@@ -24,6 +24,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
         rateLimit: 100,
       },
     },
+    lambdaHashingVersion: '20201221'
   },
   functions: {
     hello: {
