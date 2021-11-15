@@ -9,7 +9,7 @@ const serverlessConfiguration: AwsConfig.Serverless = {
   configValidationMode: 'error',
   provider: {
     name: 'aws',
-    runtime: 'nodejs10.x',
+    runtime: 'nodejs14.x',
     region: 'eu-west-1',
     stage: 'dev',
     profile: 'dojo-serverless',
