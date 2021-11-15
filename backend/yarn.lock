@@ -482,6 +482,11 @@
     graphlib "^2.1.7"
     traverse "^0.6.6"
 
+"@serverless/typescript@^2.65.0":
+  version "2.65.0"
+  resolved "https://registry.yarnpkg.com/@serverless/typescript/-/typescript-2.65.0.tgz#3878373bcd424fad0c03d5251338ae7b7ae695ae"
+  integrity sha512-lbGzEAqLbaFqvAR7ePJDx4Rj9aXRHVdXOtInBktBh5QCw2m1i7yBbkpXjagwh+BAJ4PvT3z9pakA3JpiG6L/EA==
+
 "@serverless/utils-china@^0.1.27":
   version "0.1.27"
   resolved "https://registry.yarnpkg.com/@serverless/utils-china/-/utils-china-0.1.27.tgz#cd888d0e34d2449aac20c17a4516dbba80399a96"
@@ -777,11 +782,6 @@
   integrity sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==
   dependencies:
     "@types/node" "*"
-
-"@types/serverless@^1.78.8":
-  version "1.78.8"
-  resolved "https://registry.yarnpkg.com/@types/serverless/-/serverless-1.78.8.tgz#5eeca4c4e9c7196617d45047bfc99971bd405477"
-  integrity sha512-xFLBVtD2l35wpLMlTtLTIpngUKrFAukNIzg+J7j8VhAifjBzrJL1nfmar+SoyRT1UZlfbTSQnj0FWGUR0XcjTg==
 
 "@types/tough-cookie@*":
   version "4.0.0"
