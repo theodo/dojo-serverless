@@ -1,7 +1,9 @@
 import ApiGatewayErrors from './resources/apiGatewayErrors';
 
+import { AWS } from '@serverless/typescript';
+
 // remplacer le typage
-const serverlessConfiguration = {
+const serverlessConfiguration: AWS = {
   service: 'dojo-serverless-backend',
   frameworkVersion: '>=1.83',
   plugins: ['serverless-esbuild', 'serverless-step-functions'],
