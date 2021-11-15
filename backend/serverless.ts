@@ -4,7 +4,7 @@ import ApiGatewayErrors from './resources/apiGatewayErrors';
 const serverlessConfiguration = {
   service: 'dojo-serverless-backend',
   frameworkVersion: '>=1.83',
-  plugins: ['serverless-webpack', 'serverless-step-functions'],
+  plugins: ['serverless-esbuild', 'serverless-step-functions'],
   configValidationMode: 'error',
   provider: {
     name: 'aws',
@@ -39,6 +39,18 @@ const serverlessConfiguration = {
           },
         },
       ],
+    },
+  },
+  custom: {
+    esbuild: {
+      bundle: true,
+      minify: false,
+      sourcemap: true,
+      exclude: ['aws-sdk'],
+      target: 'node14',
+      define: { 'require.resolve': undefined },
+      platform: 'node',
+      concurrency: 10,
     },
   },
   resources: {
