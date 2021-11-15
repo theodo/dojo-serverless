@@ -25,7 +25,10 @@ const serverlessConfiguration = {
         },
       }
     },
-    lambdaHashingVersion: '20201221'
+    lambdaHashingVersion: '20201221',
+    environment: {
+      NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+    },
   },
   functions: {
     hello: {
