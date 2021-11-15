@@ -17,9 +17,9 @@
     "uuid": "3.3.2"
   },
   "devDependencies": {
+    "@serverless/typescript": "^2.65.0",
     "@types/aws-lambda": "8.10.17",
     "@types/node": "10.12.18",
-    "@types/serverless": "^1.78.8",
     "@types/uuid": "3.4.5",
     "@typescript-eslint/eslint-plugin": "2.0.0",
     "@typescript-eslint/parser": "2.0.0",
