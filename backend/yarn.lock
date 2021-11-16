@@ -64,44 +64,6 @@
     "@aws-sdk/types" "3.40.0"
     tslib "^2.3.0"
 
-"@aws-sdk/client-api-gateway@^3.41.0":
-  version "3.41.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-api-gateway/-/client-api-gateway-3.41.0.tgz#97d35d0134a78e27c859bb8faf4d80035d6f83ef"
-  integrity sha512-kAPaF20p3bFomM9HgKNZiiI4YPG0qkV1DcuqFPCjPTJUZP83eWkqAVpg0fiUx2hmS3Irv84K1wHHIiUrlkP3yQ==
-  dependencies:
-    "@aws-crypto/sha256-browser" "2.0.0"
-    "@aws-crypto/sha256-js" "2.0.0"
-    "@aws-sdk/client-sts" "3.41.0"
-    "@aws-sdk/config-resolver" "3.40.0"
-    "@aws-sdk/credential-provider-node" "3.41.0"
-    "@aws-sdk/fetch-http-handler" "3.40.0"
-    "@aws-sdk/hash-node" "3.40.0"
-    "@aws-sdk/invalid-dependency" "3.40.0"
-    "@aws-sdk/middleware-content-length" "3.40.0"
-    "@aws-sdk/middleware-host-header" "3.40.0"
-    "@aws-sdk/middleware-logger" "3.40.0"
-    "@aws-sdk/middleware-retry" "3.40.0"
-    "@aws-sdk/middleware-sdk-api-gateway" "3.40.0"
-    "@aws-sdk/middleware-serde" "3.40.0"
-    "@aws-sdk/middleware-signing" "3.40.0"
-    "@aws-sdk/middleware-stack" "3.40.0"
-    "@aws-sdk/middleware-user-agent" "3.40.0"
-    "@aws-sdk/node-config-provider" "3.40.0"
-    "@aws-sdk/node-http-handler" "3.40.0"
-    "@aws-sdk/protocol-http" "3.40.0"
-    "@aws-sdk/smithy-client" "3.41.0"
-    "@aws-sdk/types" "3.40.0"
-    "@aws-sdk/url-parser" "3.40.0"
-    "@aws-sdk/util-base64-browser" "3.37.0"
-    "@aws-sdk/util-base64-node" "3.37.0"
-    "@aws-sdk/util-body-length-browser" "3.37.0"
-    "@aws-sdk/util-body-length-node" "3.37.0"
-    "@aws-sdk/util-user-agent-browser" "3.40.0"
-    "@aws-sdk/util-user-agent-node" "3.40.0"
-    "@aws-sdk/util-utf8-browser" "3.37.0"
-    "@aws-sdk/util-utf8-node" "3.37.0"
-    tslib "^2.3.0"
-
 "@aws-sdk/client-apigatewaymanagementapi@^3.41.0":
   version "3.41.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-apigatewaymanagementapi/-/client-apigatewaymanagementapi-3.41.0.tgz#4ea12c1d1827b169d0bce72ffbaf2448b0871d56"
@@ -444,15 +406,6 @@
     "@aws-sdk/types" "3.40.0"
     tslib "^2.3.0"
     uuid "^8.3.2"
-
-"@aws-sdk/middleware-sdk-api-gateway@3.40.0":
-  version "3.40.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-sdk-api-gateway/-/middleware-sdk-api-gateway-3.40.0.tgz#48b8ab90817f8063620d99542bc50ff45b8e53f2"
-  integrity sha512-rrK7MqZXrO0/3mAwJtX7K6PyJEnDO5OyesWgIl08ovIiD5VZ3TjrkO8Tknpbz+H+P2KLL2RoiSxU001GEZnJGg==
-  dependencies:
-    "@aws-sdk/protocol-http" "3.40.0"
-    "@aws-sdk/types" "3.40.0"
-    tslib "^2.3.0"
 
 "@aws-sdk/middleware-sdk-sts@3.40.0":
   version "3.40.0"
