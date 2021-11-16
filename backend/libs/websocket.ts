@@ -31,7 +31,6 @@ export const sendMessageToConnection = async ({
   message: any;
 }): Promise<void> => {
   const apiGatewayCLient = new ApiGatewayManagementApiClient({
-    region: "eu-west-1",
     apiVersion: '2018-11-29',
     endpoint,
   });

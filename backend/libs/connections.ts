@@ -7,7 +7,7 @@ interface Connection extends Item {
   endpoint: string;
 }
 
-const documentClient = DynamoDBDocumentClient.from(new DynamoDBClient({ region: "eu-west-1" }));
+const documentClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 export const createConnection = async (
   connectionId: string,
