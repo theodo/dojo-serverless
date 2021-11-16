@@ -359,7 +359,7 @@
     jsonschema "^1.4.0"
     semver "^7.3.5"
 
-"@aws-cdk/core@1.132.0":
+"@aws-cdk/core@1.132.0", "@aws-cdk/core@^1.132.0":
   version "1.132.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/core/-/core-1.132.0.tgz#eb84cb9311a2d7a66d1aeabf7da3014cbeb11ef0"
   integrity sha512-sX+uyPhXBZlorK17tJcjztV2ajzXZepbhjUKLCLwCmIx6vJmQSt13kawMJfS+yrRC6G3JO1WAUwdTYCi1/Lcbw==
