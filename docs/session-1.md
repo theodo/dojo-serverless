@@ -6,10 +6,10 @@ First follow [this documentation](./setup-aws.md) to setup a `dojo-serverless` A
 
 ### Deploy your first Serverless app
 
-First, checkout to the `session-1-v3` branch.
+First, checkout to the `session-1-v4` branch.
 
 ```
-git checkout session-1-v2
+git checkout session-1-v4
 ```
 
 Install your backend and deploy your stack !
@@ -17,7 +17,7 @@ Install your backend and deploy your stack !
 ```
 cd backend
 yarn
-yarn deploy
+yarn sls deploy
 ```
 
 That's it! Once your stack is deployed:
@@ -32,18 +32,29 @@ That's it! Once your stack is deployed:
 ### Now, it's your turn 💪
 
 In the front-end folder, copy-paste `.env.development` as `.env.development.local` and replace the httpApiId by yours.
+In order to run the frontend, from the root folder of this project run :
 
-Run `yarn` and `yarn start`. Now, it's your turn:
+```
+cd frontend
+yarn
+yarn start
+```
 
+Now, it's your turn:
+
+- Create a folder in `backend` named `backend/src/handlers/virus` to store the `get.ts`,`create.ts` et `kill.ts`.
 - Connect your front-end to your back-end through a `/virus` GET route returning a mocked list of viruses.
-- Update your route to return a single (fake) virus if an id is provided as query param (log the event to see how to retrieve them).
-- Create a `createVirus` lambda that triggers every minute and does nothing for the moment (a [useful link](https://www.serverless.com/framework/docs/providers/aws/events/schedule/)) (but don't forget to remove it at the end of the session !)
-- Create a `virus/{id}` DELETE route that is requested on a virus click, and that does nothing for the moment. (a [useful link](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#request-parameters) and [another one](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#enabling-cors))
+- You need to make sure to enable the cors policy and add the right headers in the http response, see how to it in this [link](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#enabling-cors). You can use the `success` method from `@libs/response` injects by itself the cors headers while returning a `APIGatewayProxyResult` object. Then apply that also on the following routes.
+- Update your route to return a single (fake) virus if an id is provided as query param (log the event to see how to retrieve them). Log the event in the Lambda function and go check in CloudWatch Log Group (Groupe de Journaux) to see how to retrieve the query params.
+- Create a `/virus` POST route. Link it to a `createVirus` lambda function that logs `Virus created`. In the frontend, trigger that endpoint on an addititon virus click. Then look for the log in log group.
+- Create a `/virus/{id}` DELETE route. You can use that [link](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#request-parameters) to help you on the request parameter. Link it to a `killVirus` lambda function that logs `Virus killed`. In the frontend, trigger that endpoint on a remove virus click. Then look for the log in log group.
 
-**Pro tips**:
 
-- If you want to deploy only one function, use `serverless deploy -f <your-function-name>`. It is much faster (~5s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.ts`.
-- To call locally one function, use `serverless invoke -f <your-function-name> --path path/to/mocked-event.json`
+### Pro tips:
+
+- **Deploy single Lambda function** : If you want to deploy only one function, use `serverless deploy -f <your-function-name>`. It is much faster (~5s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.ts`.
+- **Test locally a Lambda function** : To call locally one function, use `serverless invoke -f <your-function-name> --path path/to/mocked-event.json`
+- **Debug services othe than Lambda** : The most reliable method to debug other services such as DynamoDB or APIGateway is to use the AWS console and check directly on it. 
 
 Done ? Nice work ! Don't forget to kill your stack by running `serverless remove` in the backend folder !
 
