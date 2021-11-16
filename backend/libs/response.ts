@@ -1,6 +1,4 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
-import { DocumentClient } from 'aws-sdk/lib/dynamodb/document_client';
-import AttributeMap = DocumentClient.AttributeMap;
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 interface RequestContext {
   authorizer: {
@@ -18,22 +16,7 @@ export interface Event extends Omit<APIGatewayProxyEvent, 'requestContext'> {
   };
 }
 
-interface HttpResponse {
-  statusCode: number;
-  headers: {
-    [key: string]: string;
-  };
-  body: string;
-}
-
-interface ResponseBody {
-  status?: boolean;
-  error?: string;
-}
-
-type Body = ResponseBody | AttributeMap[] | AttributeMap;
-
-function buildResponse(statusCode: number, body: Body): HttpResponse {
+function buildResponse(statusCode: number, body: Record<string, unknown>): APIGatewayProxyResult {
   return {
     statusCode,
     headers: {
@@ -44,10 +27,10 @@ function buildResponse(statusCode: number, body: Body): HttpResponse {
   };
 }
 
-export function success(body: Body): HttpResponse {
+export function success(body: Record<string, unknown>): APIGatewayProxyResult {
   return buildResponse(200, body);
 }
 
-export function failure(body: Body): HttpResponse {
+export function failure(body: Record<string, unknown>): APIGatewayProxyResult {
   return buildResponse(500, body);
 }
