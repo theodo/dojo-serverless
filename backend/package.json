@@ -12,7 +12,10 @@
     "prettier:fix": "prettier '**/*' --write"
   },
   "dependencies": {
-    "aws-sdk": "2.519.0",
+    "@aws-sdk/client-api-gateway": "^3.41.0",
+    "@aws-sdk/client-apigatewaymanagementapi": "^3.41.0",
+    "@aws-sdk/client-dynamodb": "^3.41.0",
+    "@aws-sdk/lib-dynamodb": "^3.41.0",
     "source-map-support": "0.5.10",
     "uuid": "3.3.2"
   },
@@ -30,7 +33,6 @@
     "serverless": "^2.66.1",
     "serverless-esbuild": "^1.21.2",
     "serverless-step-functions": "^2.21.1",
-    "ts-loader": "5.3.3",
     "ts-node": "^10.4.0",
     "typescript": "3.7.2"
   }
