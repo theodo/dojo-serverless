@@ -1,4 +1,4 @@
-import ApiGatewayErrors from './resources/apiGatewayErrors';
+import { app, stack } from './resources/apiGatewayErrors';
 
 import { AWS } from '@serverless/typescript';
 
@@ -58,11 +58,7 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
   },
-  resources: {
-    Resources: {
-      ...ApiGatewayErrors,
-    },
-  },
+  resources: app.synth().getStackByName(stack.stackName).template,
 };
 
 module.exports = serverlessConfiguration;
