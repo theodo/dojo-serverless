@@ -19,6 +19,8 @@
     "uuid": "3.3.2"
   },
   "devDependencies": {
+    "@aws-cdk/aws-apigateway": "^1.132.0",
+    "@aws-cdk/core": "^1.132.0",
     "@serverless/typescript": "^2.65.0",
     "@types/aws-lambda": "8.10.17",
     "@types/node": "10.12.18",
