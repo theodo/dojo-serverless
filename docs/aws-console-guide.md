@@ -5,7 +5,7 @@
 When you search for `CloudFormation` in the search bar and click on the `dojo-serverless-backend-dev` pile you land on that page.
 You have informations about the pile in the first tab `informations sur la pile`.
 You can follow all update event of the resources you have in your formation in the second tab `événements`.
-All the resources that have been provide you deployed the infrastructure is listed in the `Ressources` tab.
+All the resources that have been provisionned in your infrastructure are listed in the `Ressources` tab.
 
 ## API Gateway
 When you search for `API Gateway` in the search bar you get that page. You can spot the ID you need to put in the `.env.template.local` in the frontend directory.
