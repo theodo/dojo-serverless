@@ -1,4 +1,5 @@
-import { app, stack } from './resources/apiGatewayErrors';
+import { app, stack } from '@resources/apiGatewayErrors';
+import hello from '@functions/hello';
 
 import { AWS } from '@serverless/typescript';
 
@@ -33,18 +34,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   functions: {
-    hello: {
-      handler: 'hello.main',
-      events: [
-        {
-          http: {
-            method: 'get',
-            path: 'hello',
-            cors: true,
-          },
-        },
-      ],
-    },
+    hello,
   },
   custom: {
     esbuild: {

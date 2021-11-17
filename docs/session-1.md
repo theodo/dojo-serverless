@@ -2,14 +2,16 @@
 
 ### Set up your AWS profile
 
-First follow [this documentation](./setup-aws.md) to setup a `dojo-serverless` AWS profile on your computer (or, if you want to use another AWS profile, specify it in the `serverless.yml` later).
+Before you can do anything in this dojo you need an AWS account. For that you can follow this [link](https://www.notion.so/m33/Ajout-d-un-compte-b8ae44dd8a7548b1ba55abca6971ca27#19de3b1529d44e188b295df4f2b8dc3c).
+
+Then follow [this documentation](./setup-aws.md) to setup a `dojo-serverless` AWS profile on your computer (or, if you want to use another AWS profile, specify it in the `serverless.yml` later).
 
 ### Deploy your first Serverless app
 
-First, checkout to the `session-1-v3` branch.
+First, checkout to the `session-1-v4` branch.
 
 ```
-git checkout session-1-v2
+git checkout session-1-v4
 ```
 
 Install your backend and deploy your stack !
@@ -29,21 +31,68 @@ That's it! Once your stack is deployed:
 - If you call your ressource with the url returned by the command `https://{apiId}.execute-api.{region}.amazonaws.com/{stage}/hello`, you should get your response (you can find the region and the stage in your `serverless.ts`)!
 - Go on [AWS Cloudwatch](https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1) to check out their execution logs (log stream tab)
 
+### Backend structure
+The project code base is mainly located within the `src` folder. This folder is divided in:
+
+- `functions` - containing code base and configuration for your lambda functions
+- `libs` - containing shared code base between your lambdas
+
+```
+.
+├── src
+│   ├── functions                # Lambda configuration and source code folder
+│   │   ├── hello
+│   │   │   ├── handler.ts       # `Hello` lambda source code
+│   │   │   ├── index.ts         # `Hello` lambda Serverless configuration
+│   │   │   ├── mock.json        # `Hello` lambda input parameter, if any, for local invocation
+│   │   │   └── schema.ts        # `Hello` lambda input event JSON-Schema
+│   │   │
+│   │   └── index.ts             # Import/export of all lambda configurations
+│   │
+│   ├── libs                     # Lambda shared code
+│   │   ├── apiGateway.ts        # API Gateway specific helpers
+│   │   ├── handlerResolver.ts   # Sharable library for resolving lambda handlers
+│   │   ├── lambda.ts            # Lambda middleware
+│   │   ├── connection.ts        # Handle websocket connections in DynamoDB (session 3)
+│   │   ├── response.ts          # Helpers for building response object
+│   │   ├── types.ts             # Types of items from Dynamo DB
+│   │   └── websocket.ts         # Handle websocket responses (session 3)
+│   │
+│   └── resources                # Resources not taken into account by serverless.ts
+│       └── apiGatewayErrors.ts  # API Gateway error responses configuration
+│
+├── package.json
+├── serverless.ts                # Serverless service file
+├── tsconfig.json                # Typescript compiler configuration
+└── tsconfig.paths.json          # Typescript paths
+```
+
+### Pro tips before starting:
+
+- **Deploy single Lambda function** : If you want to deploy only one function, use `yarn serverless deploy function -f <your-function-name>` (ou `yarn sls deploy function -f <your-function-name>`). It is much faster (~5s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.ts`.
+- **Test locally a Lambda function** : To call locally one function, use `yarn sls invoke -f <your-function-name> --path path/to/mocked-event.json`.
+- **Debug locally an uploaded Lambda function** : You can have locally the logs of an already uploaded lambda that runs on AWS instead of connecting to the console. For that you may use `yarn sls logs -f <your-function-name>`. For more information you can go to that [page](https://www.serverless.com/framework/docs/providers/aws/cli-reference/logs).
+- **Debug services other than Lambda** : The most reliable method to debug other services such as DynamoDB or APIGateway is to use the AWS console and check directly on it. Check this [page](./aws-console-guide.md) whenever you are lost on the AWS console.
+
 ### Now, it's your turn 💪
 
 In the front-end folder, copy-paste `.env.development` as `.env.development.local` and replace the httpApiId by yours.
+In order to run the frontend, from the root folder of this project run :
 
-Run `yarn` and `yarn start`. Now, it's your turn:
+```
+cd frontend
+yarn
+yarn start
+```
 
+Now, it's your turn:
+
+- Create a folder in `backend` named `backend/src/handlers/virus` to store the `get.ts`,`create.ts` et `kill.ts`.
 - Connect your front-end to your back-end through a `/virus` GET route returning a mocked list of viruses.
-- Update your route to return a single (fake) virus if an id is provided as query param (log the event to see how to retrieve them).
-- Create a `createVirus` lambda that triggers every minute and does nothing for the moment (a [useful link](https://www.serverless.com/framework/docs/providers/aws/events/schedule/)) (but don't forget to remove it at the end of the session !)
-- Create a `virus/{id}` DELETE route that is requested on a virus click, and that does nothing for the moment. (a [useful link](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#request-parameters) and [another one](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#enabling-cors))
-
-**Pro tips**:
-
-- If you want to deploy only one function, use `serverless deploy -f <your-function-name>`. It is much faster (~5s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.ts`.
-- To call locally one function, use `serverless invoke -f <your-function-name> --path path/to/mocked-event.json`
+- You need to make sure to enable the cors policy and add the right headers in the http response, see how to it in this [link](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#enabling-cors). You can use the `success` method from `@libs/response` injects by itself the cors headers while returning a `APIGatewayProxyResult` object. Then apply that also on the following routes.
+- Update your route to return a single (fake) virus if an id is provided as query param (log the event to see how to retrieve them). Log the event in the Lambda function and go check in CloudWatch Log Group (Groupe de Journaux) to see how to retrieve the query params.
+- Create a `/virus` POST route. Link it to a `createVirus` lambda function that logs `Virus created`. In the frontend, trigger that endpoint on an addititon virus click. Then look for the log in log group.
+- Create a `/virus/{id}` DELETE route. You can use that [link](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/#request-parameters) to help you on the request parameter. Link it to a `killVirus` lambda function that logs `Virus killed`. In the frontend, trigger that endpoint on a remove virus click. Then look for the log in log group.
 
 Done ? Nice work ! Don't forget to kill your stack by running `serverless remove` in the backend folder !
 
