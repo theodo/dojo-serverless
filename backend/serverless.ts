@@ -1,5 +1,6 @@
 import { app, stack } from '@resources/apiGatewayErrors';
-import hello from '@functions/hello';
+
+import { functions } from '@functions/index';
 
 import { AWS } from '@serverless/typescript';
 
@@ -36,9 +37,7 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
   },
-  functions: {
-    hello,
-  },
+  functions,
   custom: {
     esbuild: {
       bundle: true,
