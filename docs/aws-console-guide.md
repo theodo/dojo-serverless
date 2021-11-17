@@ -40,3 +40,4 @@ To monitor the logs, you can either see all the logs by clicking `Search log gro
 
 ## DynamoDB
 TODO in session 2
+TODO put how to query and scan
