@@ -1,6 +1,6 @@
 import { APIGatewayEventRequestContext } from 'aws-lambda';
 import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
-import { deleteConnection } from 'src/libs/connections';
+import { deleteConnection } from '@libs/connections';
 
 interface WebSocketRequestContext<MessageRouteKey>
   extends APIGatewayEventRequestContext {

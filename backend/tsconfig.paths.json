@@ -2,13 +2,33 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@libs/*": ["libs/*"],
-      "@services": ["services"],
-      "@services/*": ["services/*"],
-      "@typeDefs": ["typeDefs"],
-      "@typeDefs/*": ["typeDefs/*"],
-      "@builders": ["libs/builders"],
-      "@builders/*": ["libs/builders/*"]
+      "@libs/*": [
+        "src/libs/*"
+      ],
+      "@functions/*": [
+        "src/functions/*"
+      ],
+      "@resources/*": [
+        "src/resources/*"
+      ],
+      "@services": [
+        "services"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@typeDefs": [
+        "typeDefs"
+      ],
+      "@typeDefs/*": [
+        "typeDefs/*"
+      ],
+      "@builders": [
+        "libs/builders"
+      ],
+      "@builders/*": [
+        "libs/builders/*"
+      ]
     }
   }
 }

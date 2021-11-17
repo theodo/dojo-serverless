@@ -1,5 +1,5 @@
-import { app, stack } from './src/resources/apiGatewayErrors';
-import hello from './src/functions/hello';
+import { app, stack } from '@resources/apiGatewayErrors';
+import hello from '@functions/hello';
 
 import { AWS } from '@serverless/typescript';
 
