@@ -5,7 +5,7 @@ export default {
   events: [
     {
       http: {
-        method: 'get',
+        method: 'delete',
         path: 'virus/{id}',
         cors: true,
         request: {
