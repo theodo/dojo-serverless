@@ -17,6 +17,7 @@ Click on the `dev-dojo-serverless-backend` to land on the console of API Gateway
 You can test each endpoint of your API Gateway here.
 
 Moreover, you can enable logs for API Gateway in the serverless.ts config by following this [guidelines](https://www.serverless.com/framework/docs/providers/aws/events/apigateway#logs). Don't forget to deploy these changes if you want them to be active.
+For this dojo, these logs are enabled by default in all sessions.
 
 ## AWS Lambda
 When you search for `AWS Lambda` in the search bar you get that page. There is the list of all lambda fucntions that have been provided in the infrasructure.
