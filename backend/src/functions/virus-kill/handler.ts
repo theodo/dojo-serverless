@@ -1,12 +1,11 @@
-import { success } from '@libs/apiGateway';
-import { APIGatewayProxyHandler } from 'aws-lambda';
-import { middyfy } from '@libs/lambda';
+import { middyfyWithoutBodyParser } from '@libs/lambda';
+import { formatJSONResponse, IdParamRequiredEventAPIGatewayProxyHandler } from '@libs/apiGateway';
 
-const kill: APIGatewayProxyHandler = async (event) => {
+const kill: IdParamRequiredEventAPIGatewayProxyHandler = async (event) => {
   const { id } = event.pathParameters;
 
   console.log('Virus killed');
-  return success({ id });
+  return formatJSONResponse({ id });
 }
 
-export const main = middyfy(kill);
+export const main = middyfyWithoutBodyParser(kill);
