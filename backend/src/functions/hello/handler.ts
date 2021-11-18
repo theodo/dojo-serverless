@@ -1,6 +1,6 @@
 import type { ValidatedEventAPIGatewayProxyHandler } from '@libs/apiGateway';
 import { formatJSONResponse } from '@libs/apiGateway';
-import { middyfy } from '@libs/lambda';
+import { middyfyWithBodyParser } from '@libs/lambda';
 
 import schema from './schema';
 
@@ -11,4 +11,4 @@ const hello: ValidatedEventAPIGatewayProxyHandler<typeof schema> = async (event)
   });
 }
 
-export const main = middyfy<typeof schema>(hello);
+export const main = middyfyWithBodyParser<typeof schema>(hello);
