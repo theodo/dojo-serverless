@@ -38,6 +38,7 @@
     "serverless-esbuild": "^1.21.2",
     "serverless-step-functions": "^2.21.1",
     "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.11.0",
     "typescript": "3.7.2"
   }
 }
