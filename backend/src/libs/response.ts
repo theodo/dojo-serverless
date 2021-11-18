@@ -16,7 +16,10 @@ export interface Event extends Omit<APIGatewayProxyEvent, 'requestContext'> {
   };
 }
 
-function buildResponse(statusCode: number, body: Record<string, unknown>): APIGatewayProxyResult {
+function buildResponse(
+  statusCode: number,
+  body: Record<string, unknown>,
+): APIGatewayProxyResult {
   return {
     statusCode,
     headers: {

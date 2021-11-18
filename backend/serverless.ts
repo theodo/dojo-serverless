@@ -26,10 +26,10 @@ const serverlessConfiguration: AWS = {
           burstLimit: 200,
           rateLimit: 100,
         },
-      }
+      },
     },
     logs: {
-      restApi: true
+      restApi: true,
     },
     lambdaHashingVersion: '20201221',
     environment: {

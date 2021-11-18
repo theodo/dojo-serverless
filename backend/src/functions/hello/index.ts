@@ -1,5 +1,5 @@
-import schema from './schema';
 import { handlerPath } from '@libs/handlerResolver';
+import schema from './schema';
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
@@ -11,10 +11,10 @@ export default {
         cors: true,
         request: {
           schemas: {
-            'application/json': schema
-          }
-        }
-      }
-    }
-  ]
-}
+            'application/json': schema,
+          },
+        },
+      },
+    },
+  ],
+};

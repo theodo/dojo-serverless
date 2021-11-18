@@ -1,5 +1,8 @@
 import { APIGatewayEventRequestContext } from 'aws-lambda';
-import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
+import {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand,
+} from '@aws-sdk/client-apigatewaymanagementapi';
 import { deleteConnection } from '@libs/connections';
 
 interface WebSocketRequestContext<MessageRouteKey>
@@ -35,11 +38,12 @@ export const sendMessageToConnection = async ({
     endpoint,
   });
   try {
-    await apiGatewayCLient
-      .send(new PostToConnectionCommand({
+    await apiGatewayCLient.send(
+      new PostToConnectionCommand({
         ConnectionId: connectionId,
         Data: Buffer.from(JSON.stringify(message)),
-      }));
+      }),
+    );
   } catch (error) {
     if (error.statusCode !== 410) {
       throw error;
