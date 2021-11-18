@@ -1,6 +1,6 @@
-import { success } from '@libs/apiGateway';
+import { formatJSONResponse } from '@libs/apiGateway';
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { middyfy } from '@libs/lambda';
+import { middyfyWithoutBodyParser } from '@libs/lambda';
 import uuid from 'uuid';
 
 const get: APIGatewayProxyHandler = async () => {
@@ -10,7 +10,7 @@ const get: APIGatewayProxyHandler = async () => {
     { id: uuid() },
     { id: uuid() },
   ];
-  return success({ viruses });
+  return formatJSONResponse({ viruses });
 }
 
-export const main = middyfy(get);
+export const main = middyfyWithoutBodyParser(get);
