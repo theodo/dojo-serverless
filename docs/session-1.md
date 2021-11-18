@@ -72,7 +72,7 @@ The project code base is mainly located within the `src` folder. This folder is 
 - **Deploy single Lambda function** : If you want to deploy only one function, use `yarn serverless deploy function -f <your-function-name>` (ou `yarn sls deploy function -f <your-function-name>`). It is much faster (~5s) than deploying a stack (~30s) but will only deploy the function's code, not any config change in your `serverless.ts`.
 - **Test locally a Lambda function** : To call locally one function, use `yarn sls invoke -f <your-function-name> --path path/to/mocked-event.json`.
 - **Debug locally an uploaded Lambda function** : You can have locally the logs of an already uploaded lambda that runs on AWS instead of connecting to the console. For that you may use `yarn sls logs -f <your-function-name>`. For more information you can go to that [page](https://www.serverless.com/framework/docs/providers/aws/cli-reference/logs).
-- **Debug services other than Lambda** : The first thing to do if your stack doesn't work the way you want and you have to debug it, it's to spot the service that causes the issue. The most reliable method services such as DynamoDB or APIGateway is to use the AWS console and check directly on it. Check this [page](./aws-console-guide.md) whenever you are lost on the AWS console.
+- **Debug services other than Lambda** : The first thing to do if your stack doesn't work the way you want and you have to debug it, it's to spot the service that causes the issue. The most reliable method for services such as DynamoDB or APIGateway is to use the AWS console and check directly on it. Check this [page](./aws-console-guide.md) whenever you are lost on the AWS console.
 
 ### Now, it's your turn 💪
 
