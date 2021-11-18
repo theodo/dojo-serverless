@@ -28,6 +28,9 @@ const serverlessConfiguration: AWS = {
         },
       }
     },
+    logs: {
+      restApi: true
+    },
     lambdaHashingVersion: '20201221',
     environment: {
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
