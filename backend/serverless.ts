@@ -1,5 +1,5 @@
-// import { Stack } from '@aws-cdk/core';
-import { app, stack/*, table*/ } from '@resources/index';
+import { Stack } from '@aws-cdk/core';
+import { app, stack, table } from '@resources/index';
 
 import { functions } from '@functions/index';
 
@@ -30,18 +30,18 @@ const serverlessConfiguration: AWS = {
         },
       },
     },
-    // iamRoleStatements: [
-    //   {
-    //     Effect: 'Allow',
-    //     Action: [
-    //       'dynamodb:Query',
-    //       'dynamodb:PutItem',
-    //       'dynamodb:DeleteItem',
-    //       'dynamodb:ListStreams',
-    //     ],
-    //     Resource: [Stack.of(stack).resolve(table.tableArn)],
-    //   },
-    // ],
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: [
+          'dynamodb:Query',
+          'dynamodb:PutItem',
+          'dynamodb:DeleteItem',
+          'dynamodb:ListStreams',
+        ],
+        Resource: [Stack.of(stack).resolve(table.tableArn)],
+      },
+    ],
     logs: {
       restApi: true,
     },
