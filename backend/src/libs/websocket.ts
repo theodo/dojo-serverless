@@ -33,19 +33,22 @@ export const sendMessageToConnection = async ({
   endpoint: string;
   message: any;
 }): Promise<void> => {
-  const apiGatewayCLient = new ApiGatewayManagementApiClient({
+  const apiGatewayClient = new ApiGatewayManagementApiClient({
     apiVersion: '2018-11-29',
-    endpoint,
+    endpoint: `https://${endpoint.slice(0, endpoint.length - 4)}`,
   });
   try {
-    await apiGatewayCLient.send(
+    console.log('(1)(1) apiGatewayClient', apiGatewayClient);
+    await apiGatewayClient.send(
       new PostToConnectionCommand({
         ConnectionId: connectionId,
         Data: Buffer.from(JSON.stringify(message)),
       }),
     );
+    console.log('(1)(2)');
   } catch (error) {
     if (error.statusCode !== 410) {
+      console.log('(error)');
       throw error;
     }
     console.log(`Found stale connection, deleting ${connectionId}`);
